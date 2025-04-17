@@ -41,9 +41,10 @@ const TRANSITION_SECTION = {
 
 type ProjectVideoProps = {
   src: string
+  thumbnail: string
 }
 
-function ProjectVideo({ src }: ProjectVideoProps) {
+function ProjectVideo({ src, thumbnail }: ProjectVideoProps) {
   return (
     <MorphingDialog
       transition={{
@@ -53,12 +54,18 @@ function ProjectVideo({ src }: ProjectVideoProps) {
       }}
     >
       <MorphingDialogTrigger>
+        {/* Show static image on small screens, video on larger screens */}
+        <img
+          src={thumbnail}
+          alt="Project thumbnail"
+          className="aspect-video w-full cursor-zoom-in rounded-xl sm:hidden"
+        />
         <video
           src={src}
           autoPlay
           loop
           muted
-          className="aspect-video w-full cursor-zoom-in rounded-xl"
+          className="hidden sm:block aspect-video w-full cursor-zoom-in rounded-xl"
         />
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
@@ -151,7 +158,7 @@ export default function Personal() {
           {PROJECTS.map((project) => (
             <div key={project.name} className="space-y-2">
               <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                <ProjectVideo src={project.video} />
+                <ProjectVideo src={project.video} thumbnail={project.thumbnail} />
               </div>
               <div className="px-1">
                 <a
