@@ -12,9 +12,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Haozhe.Li - Personal Website',
+  title: 'Haozhe Li',
   description:
-    'A personal website showcasing my work and projects.',
+    'AI enthusiast / Full-stack / Product / ...',
 }
 
 const geist = Geist({
