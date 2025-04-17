@@ -75,6 +75,14 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     link: 'https://rpggo.ai',
     id: 'work3',
   },
+  {
+    company: 'University of Illinois',
+    title: 'Course Assistant',
+    start: '2023.1',
+    end: '2023.5',
+    link: 'https://illinois.edu',
+    id: 'work4',
+  },
 ]
 
 export const BLOG_POSTS: BlogPost[] = [
