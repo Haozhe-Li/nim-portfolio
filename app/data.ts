@@ -89,19 +89,26 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 ]
 
 export const BLOG_POSTS: BlogPost[] = [
+  // {
+  //   title: 'About Me',
+  //   description: 'A brief introduction to my work and my journey so far.',
+  //   link: '/blog/about-me',
+  //   uid: 'blog-1',
+  // },
   {
-    title: 'About Me',
-    description: 'A brief introduction to my work and my journey so far.',
-    link: '/blog/about-me',
+    title: 'Behind Chat Syllabus: Building a Smart Course Assistant',
+    description:
+      'How I built Chat Syllabus, and what I learned along the way.',
+    link: '/blog/chatsyllabus',
     uid: 'blog-1',
   },
-  // {
-  //   title: 'My Project',
-  //   description:
-  //     'View all my projects and their details.',
-  //   link: '/blog/project',
-  //   uid: 'blog-2',
-  // },
+  {
+    title: 'Behind Omni Knows XYZ: Bringing AI to Search Engines',
+    description:
+      'Omni is a search engine that knows from x to y to z.',
+    link: '/blog/omniknowsxyz',
+    uid: 'blog-2',
+  },
   // {
   //   title: 'What I learned from my first year of freelancing',
   //   description:

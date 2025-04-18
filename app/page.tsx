@@ -183,7 +183,7 @@ export default function Personal() {
             <MagneticButton href="/blog/about-me">
               {t.header.about || 'About'}
             </MagneticButton>
-            <MagneticButton href="/blog/cv">
+            <MagneticButton href="https://cdn.haozheli.com/HaozheLi_Resume.pdf" target="_blank">
               {t.header.resume || 'Resume'}
             </MagneticButton>
           </div>
