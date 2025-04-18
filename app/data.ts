@@ -90,16 +90,16 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    title: 'About Me, My Work, and My Journey',
+    title: 'About Me',
     description: 'A brief introduction to my work and my journey so far.',
     link: '/blog/about-me',
     uid: 'blog-1',
   },
   // {
-  //   title: 'Why I left my job to start my own company',
+  //   title: 'Gallery of My Work',
   //   description:
-  //     'A deep dive into my decision to leave my job and start my own company',
-  //   link: '/blog/exploring-the-intersection-of-design-ai-and-design-engineering',
+  //     'Reflective moments under my camera',
+  //   link: '/blog/gallery',
   //   uid: 'blog-2',
   // },
   // {
