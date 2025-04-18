@@ -21,14 +21,7 @@ export function Header() {
         >
           {t.header.tagline}
         </TextEffect>
-        <div className="mt-4 flex gap-3">
-          <MagneticButton href="/blog/about-me">
-            {t.header.about || 'About'}
-          </MagneticButton>
-          <MagneticButton href="https://cdn.haozheli.com/HaozheLi_Resume.pdf" target="_blank">
-            {t.header.resume || 'Resume'}
-          </MagneticButton>
-        </div>
+        {/* 按钮组已移至首页 description 下方，这里移除按钮 */}
       </div>
     </header>
   )
@@ -59,7 +52,6 @@ function MagneticButton({ href, children, target }: { href: string; children: Re
           ></path>
         </svg>
       </a>
-    
     </Magnetic>
   )
 }
