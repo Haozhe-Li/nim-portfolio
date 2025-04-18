@@ -35,7 +35,7 @@ export const PROJECTS: Project[] = [
       en: 'Know better about your courses with AI.',
       zh: '用 AI 更好地了解你的课程。',
     },
-    link: 'https://chatsyllabus.xyz/',
+    link: '/blog/chatsyllabus',
     video: 'https://cdn.haozheli.com/chatsyllabus.mp4',
     thumbnail: 'https://cdn.haozheli.com/chatsyllabus.webp',
     id: 'project1',
@@ -46,7 +46,7 @@ export const PROJECTS: Project[] = [
       en: 'A smart search engine like never before.',
       zh: '前所未有的智能搜索引擎。',
     },
-    link: 'https://omniknows.xyz/',
+    link: '/blog/omniknowsxyz',
     video: 'https://cdn.haozheli.com/omniknowsxyz.mp4',
     thumbnail: 'https://cdn.haozheli.com/omniknowsxyz.webp',
     id: 'project2',
@@ -96,10 +96,10 @@ export const BLOG_POSTS: BlogPost[] = [
     uid: 'blog-1',
   },
   // {
-  //   title: 'Gallery of My Work',
+  //   title: 'My Project',
   //   description:
-  //     'Reflective moments under my camera',
-  //   link: '/blog/gallery',
+  //     'View all my projects and their details.',
+  //   link: '/blog/project',
   //   uid: 'blog-2',
   // },
   // {
