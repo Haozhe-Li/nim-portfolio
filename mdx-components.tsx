@@ -42,5 +42,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </div>
       )
     },
+    Highlight: ({
+      children,
+    }: {
+      children: React.ReactNode
+    }) => (
+      <div className="my-4 rounded-xl bg-zinc-100 py-3 px-4 text-zinc-800 shadow-sm dark:bg-zinc-900 dark:text-zinc-200">
+        <div>{children}</div>
+      </div>
+    ),
   }
 }
