@@ -19,5 +19,28 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </figure>
       )
     },
+
+    Video: ({
+      src,
+      alt,
+      caption,
+    }: {
+      src: string
+      alt: string
+      caption: string
+    }) => {
+      return (
+        <div className="relative">
+          <video
+            src={src}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="aspect-video w-full cursor-zoom-in rounded-xl"
+          />
+        </div>
+      )
+    },
   }
 }
