@@ -37,7 +37,7 @@ export const PROJECTS: Project[] = [
     },
     link: '/blog/chatsyllabus',
     video: 'https://cdn.haozheli.com/chatsyllabus.mp4',
-    thumbnail: 'https://cdn.haozheli.com/chatsyllabus.webp',
+    thumbnail: 'https://cdn.haozheli.com/project2.webp',
     id: 'project1',
   },
   {
@@ -48,7 +48,7 @@ export const PROJECTS: Project[] = [
     },
     link: '/blog/omniknowsxyz',
     video: 'https://cdn.haozheli.com/omniknowsxyz.mp4',
-    thumbnail: 'https://cdn.haozheli.com/omniknowsxyz.webp',
+    thumbnail: 'https://cdn.haozheli.com/project1.webp',
     id: 'project2',
   },
 ]
