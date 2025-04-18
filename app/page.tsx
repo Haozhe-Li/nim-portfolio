@@ -173,6 +173,7 @@ export default function Personal() {
                     autoPlay
                     loop
                     muted
+                    playsInline
                     className="aspect-video w-full cursor-pointer rounded-xl" // hidden sm:block
                   />
                 </a>
