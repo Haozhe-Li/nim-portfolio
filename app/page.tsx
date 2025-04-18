@@ -163,17 +163,17 @@ export default function Personal() {
             <div key={project.id} className="space-y-2">
               <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
                 <a href={project.link}>
-                  <img
+                  {/* <img
                     src={project.thumbnail}
                     alt="Project thumbnail"
                     className="aspect-video w-full cursor-pointer rounded-xl sm:hidden"
-                  />
+                  /> */}
                   <video
                     src={project.video}
                     autoPlay
                     loop
                     muted
-                    className="hidden sm:block aspect-video w-full cursor-pointer rounded-xl"
+                    className="aspect-video w-full cursor-pointer rounded-xl" // hidden sm:block
                   />
                 </a>
               </div>
