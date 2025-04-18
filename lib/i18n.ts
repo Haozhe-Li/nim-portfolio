@@ -5,8 +5,10 @@ export type Locale = 'en' | 'zh'
 const translations: Record<Locale, Record<string, any>> = {
   en: {
     header: {
-        name: 'Haozhe Li',
+      name: 'Haozhe Li',
       tagline: 'AI enthusiast / Full-stack / Product / ...',
+      about: 'About',
+      resume: 'CV',
     },
     footer: {
       copy1: '© 2025 Haozhe Li.',
@@ -27,17 +29,19 @@ const translations: Record<Locale, Record<string, any>> = {
   },
   zh: {
     header: {
-        name: '李浩哲',
+      name: '李浩哲',
       tagline: 'AI enthusiast / Full-stack / Product / ...',
+      about: '关于我',
+      resume: '简历',
     },
     footer: {
       copy1: '© 2025 李浩哲。',
       copy2: '用爱与AI构建。',
     },
     language: {
-        en: 'EN',
-        zh: '中',
-      },
+      en: 'EN',
+      zh: '中',
+    },
     home: {
       description: '专注于将 AI 应用于日常生活，架起思想与工程之间的桥梁。',
       selectedProjects: '精选项目',
