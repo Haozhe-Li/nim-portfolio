@@ -10,7 +10,7 @@ const translations: Record<Locale, Record<string, any>> = {
     },
     footer: {
       copy1: '© 2025 Haozhe Li.',
-      copy2: 'Inspired by Nim.',
+      copy2: 'Shipped with AI and love.',
     },
     language: {
       en: 'EN',
@@ -32,7 +32,7 @@ const translations: Record<Locale, Record<string, any>> = {
     },
     footer: {
       copy1: '© 2025 李浩哲。',
-      copy2: '灵感来自 Nim。',
+      copy2: '用爱与AI构建。',
     },
     language: {
         en: 'EN',
