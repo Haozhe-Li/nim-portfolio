@@ -5,6 +5,7 @@ import { Header } from './header'
 import { Footer } from './footer'
 import { ThemeProvider } from 'next-themes'
 import { LocaleProvider } from '@/lib/locale-context'
+import { Analytics } from "@vercel/analytics/react"
 
 export const viewport: Viewport = {
   width: 'device-width',
