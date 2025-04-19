@@ -30,7 +30,7 @@ function CopyButton() {
 }
 
 // 目录组件
-function BlogTOC({ containerRef }: { containerRef: React.RefObject<HTMLElement> }) {
+function BlogTOC({ containerRef }: { containerRef: React.RefObject<HTMLElement | null> }) {
   const [headings, setHeadings] = useState<{ id: string; text: string }[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
 
