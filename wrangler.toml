@@ -14,3 +14,6 @@ bucket = ".vercel/output/static"
 [pages]
 # Cloudflare Pages Functions 目录
 functions = ".vercel/output/functions"
+
+# Cloudflare Pages 构建输出目录
+pages_build_output_dir = ".vercel/output/static"
