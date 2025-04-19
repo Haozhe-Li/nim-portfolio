@@ -134,9 +134,9 @@ export default function LayoutBlogPost({
       <div className="relative max-w-5xl mx-auto w-full mt-24 pb-20 px-4">
         {/* 固定居中的目录，不影响内容宽度 */}
         <div className="hidden lg:block fixed z-30 top-1/2 -translate-y-1/2"
-             style={{
-               left: `calc(50vw - 640px - 12px)`, // 12px为内容区与目录的间距
-             }}>
+          style={{
+            left: `calc(50vw - 640px - 12px)`, // 12px为内容区与目录的间距
+          }}>
           <BlogTOC containerRef={mainRef} />
         </div>
         {/* 主体内容不再有 ml-xx，宽度与无目录时一致 */}

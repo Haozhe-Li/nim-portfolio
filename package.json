@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pages:build": "next-on-pages build",
+    "pages:deploy": "wrangler pages deploy .vercel/output/static --project-name=<your-project-name>"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
@@ -25,6 +27,7 @@
     "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.8.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^20",

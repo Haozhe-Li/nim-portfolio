@@ -1,0 +1,16 @@
+name = "nim-portfolio"
+compatibility_date = "2024-04-19"
+
+[build]
+command = "npm run pages:build"
+
+[site]
+bucket = ".vercel/output/static"
+
+[env.production]
+# 可选：自定义生产环境变量
+# VAR_NAME = "value"
+
+[pages]
+# Cloudflare Pages Functions 目录
+functions = ".vercel/output/functions"
