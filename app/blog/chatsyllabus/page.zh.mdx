@@ -1,0 +1,41 @@
+# Chat Syllabus 背后的故事：打造智能课程助手
+
+<Video
+  src="https://cdn.haozheli.com/chatsyllabus.mp4"
+  alt="Chat Syllabus 封面视频"
+  caption="Chat Syllabus 更智能的学习"
+/>
+
+**项目链接：** [Chatsyllabus.xyz](https://chatsyllabus.xyz)
+
+## 概述
+
+每学期伊始，学生们都要面对管理多门课程和对应大纲的挑战。为什么不利用生成式AI的力量来简化这一过程？这就是 **Chat Syllabus** 的初衷——它能分析你的课程大纲，提供可操作的洞见，比如课程难度、每周作业和工作量。告别不确定，让 **Chat Syllabus** 帮你更聪明地规划、井然有序地学习，轻松应对新学期。
+
+## 功能亮点
+
+- **课程分析器：** 评估课程难度（1-10分），10分最难，助你合理规划学期！
+- **联系方式：** 轻松获取老师、教授和助教的邮箱和电话，随时求助。
+- **成绩构成：** 清晰了解各部分成绩占比，聚焦最重要的内容。
+- **作业清单：** 详细的每周作业清单，绝不错过任何截止日期！
+- **智能聊天机器人：** 有问题？随时提问，秒得答案。
+- **更多功能：** 还有更多贴心设计，助你高效学习。
+
+## 技术栈
+
+**Chat Syllabus** 是一个由先进AI模型驱动的Web应用。主要技术如下：
+
+### 前端
+
+前端采用 React 构建，实现动态页面渲染。通过 Vercel 和 Cloudflare 部署，保证访问速度和全球可用性。文本嵌入（embeddings）直接存储在用户浏览器，无需后端数据库，保障数据隐私和效率。
+
+### 后端
+
+后端基于 Python 和 FastAPI 框架，处理前端请求。作为 RAG（检索增强生成）应用，我们用 OpenAI Davinci 生成文本嵌入，使用 Groq 的 LLaMa 3.3 8B 和 70B 模型实现快速、准确的文本回复。
+
+## 我们的团队
+
+- **[李浩哲:](https://haozhe.li)** 架构师 & 全栈开发
+- **[Hansen Punnoose:](https://www.linkedin.com/in/hansen-punnoose-94482a191/)** 聊天机器人 & 前端专家
+- **[Zhicheng Hu:](https://www.linkedin.com/in/zhicheng-hu-a6ba87251/)** RAG & 课程分析专家
+- **[Steven Zheng:](https://www.linkedin.com/in/steven-zheng-58273a341/)** 成绩构成 & 作业清单负责人

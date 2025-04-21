@@ -17,8 +17,8 @@ type WorkExperience = {
 }
 
 type BlogPost = {
-  title: string
-  description: string
+  title: { en: string; zh: string }
+  description: { en: string; zh: string }
   link: string
   uid: string
 }
@@ -89,33 +89,30 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 ]
 
 export const BLOG_POSTS: BlogPost[] = [
-  // {
-  //   title: 'About Me',
-  //   description: 'A brief introduction to my work and my journey so far.',
-  //   link: '/blog/about-me',
-  //   uid: 'blog-1',
-  // },
   {
-    title: 'Behind Chat Syllabus: Building a Smart Course Assistant',
-    description:
-      'How I built Chat Syllabus, and what I learned along the way.',
+    title: {
+      en: 'Behind Chat Syllabus: Building a Smart Course Assistant',
+      zh: 'Chat Syllabus 背后的故事：打造智能课程助手',
+    },
+    description: {
+      en: 'How I built Chat Syllabus, and what I learned along the way.',
+      zh: '如何打造 Chat Syllabus，以及我的收获与思考。',
+    },
     link: '/blog/chatsyllabus',
     uid: 'blog-1',
   },
   {
-    title: 'Behind Omni Knows XYZ: Bringing AI to Search Engines',
-    description:
-      'Omni is a search engine that knows from x to y to z.',
+    title: {
+      en: 'Behind Omni Knows XYZ: Bringing AI to Search Engines',
+      zh: 'Omni Knows XYZ 背后的故事：用AI革新搜索引擎',
+    },
+    description: {
+      en: 'Omni is a search engine that knows from x to y to z.',
+      zh: 'Omni 是一个无所不知的智能搜索引擎。',
+    },
     link: '/blog/omniknowsxyz',
     uid: 'blog-2',
   },
-  // {
-  //   title: 'What I learned from my first year of freelancing',
-  //   description:
-  //     'A look back at my first year of freelancing and what I learned',
-  //   link: '/blog/exploring-the-intersection-of-design-ai-and-design-engineering',
-  //   uid: 'blog-3',
-  // },
 ]
 
 export const SOCIAL_LINKS: SocialLink[] = [

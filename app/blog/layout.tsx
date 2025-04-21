@@ -35,6 +35,9 @@ function BlogTOC({ containerRef }: { containerRef: React.RefObject<HTMLElement |
   const [headings, setHeadings] = useState<{ id: string; text: string }[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
 
+  const locale = useLocale()
+  const summaryText = locale === 'zh' ? '目录' : 'Summary'
+
   // 收集二级标题
   useEffect(() => {
     if (!containerRef.current) return
@@ -51,7 +54,7 @@ function BlogTOC({ containerRef }: { containerRef: React.RefObject<HTMLElement |
       return { id: node.id, text: node.textContent || '' }
     })
     setHeadings(hs)
-  }, [containerRef])
+  }, [containerRef, locale])
 
   // 激活高亮
   useEffect(() => {
@@ -89,7 +92,7 @@ function BlogTOC({ containerRef }: { containerRef: React.RefObject<HTMLElement |
       aria-label="Summary"
       style={{ minWidth: 160 }}
     >
-      <div className="mb-3 pl-1 text-xs font-semibold tracking-widest text-zinc-400 dark:text-zinc-500 select-none">Summary</div>
+      <div className="mb-3 pl-1 text-xs font-semibold tracking-widest text-zinc-400 dark:text-zinc-500 select-none">{summaryText}</div>
       <ul className="space-y-1 border-l border-zinc-200 dark:border-zinc-800">
         {headings.map((h) => (
           <li key={h.id}>
