@@ -1,0 +1,96 @@
+# AI-Content-Classifier Project Architecture and Core Concepts
+
+Project Link: [https://zeroai.haozheli.com](https://zeroai.haozheli.com)
+
+This project aims to use machine learning and natural language processing technologies to distinguish between AI-generated and human-created text. The following sections will introduce the project's overall architecture, module functions, and core processes.
+
+## Core Module Description
+
+### 1. `core/classifier.py`
+
+- **AIContentClassifier**: The main classifier class, integrating the GPT2 language model and custom machine learning models.
+
+- `get_ppl`: Calculate the perplexity of the text, which measures the naturalness of the text.
+
+- `get_pplx_map`: Calculate the perplexity of each sentence in the text and record the maximum and average perplexity.
+
+- `get_likelihood`: Use the perplexity feature to call the random forest model to predict the AI-generated probability.
+
+- `classify`: The main entry point, combining the above methods to output the final judgment and visualized results.
+
+### 2. `core/model/`
+
+- **load_model.py**: Load the trained machine learning model (such as random forest).
+
+- **ml_model.pkl**: The weight file of the saved model.
+
+### 3. `core/utils.py`
+
+- Text cleaning, sentence splitting, and result rendering auxiliary functions.
+
+### 4. Frontend and Interaction
+
+- **index.html** + **assets/**: User input text, the frontend interacts with the backend through API, and displays the detection result.
+
+## Core Process
+
+1. **Text Input**: The user submits the text to be detected.
+
+2. **Text Preprocessing**: Cleaning and sentence splitting to ensure the validity of the input.
+
+3. **Perplexity Calculation**: Using GPT2 to calculate the perplexity of each sentence in the text.
+
+4. **Feature Extraction**: Record the average perplexity, maximum perplexity, sentence count, and continuous low perplexity segments.
+
+5. **Machine Learning Discrimination**: Input the features into the random forest model to output the AI-generated probability.
+
+6. **Result Display**: Return the judgment label, probability score, and visualized report.
+
+## PPLx Calculation Method Explanation
+
+PPLx (sentence perplexity mapping) is an important feature used in this project to analyze the local naturalness of the text. The calculation process is as follows:
+
+1. **Text Splitting**: First, split the input text into sentences, ensuring each segment has complete semantics.
+
+2. **Perplexity Calculation for Each Sentence**: For each sentence, use the GPT2 language model to calculate its perplexity (PPL).
+
+3. **Feature Extraction**:
+
+- Record the perplexity of each sentence to form the perplexity sequence (PPLx Map).
+
+- Calculate the average perplexity of all sentences (mean PPL).
+
+- Calculate the maximum perplexity (burstiness), which reflects the unnatural segments in the text.
+
+- Further extract features such as continuous low perplexity segments.
+
+4. **Visualization and Judgment**:
+
+- The PPLx Map can be used for visualization to help understand the distribution of naturalness in the text.
+
+- These features serve as input to the machine learning model for the final AI content judgment.
+
+**Example Pseudocode**:
+
+```python
+sentences = split_sentences(text)
+pplx_map = [get_ppl(sentence) for sentence in sentences]
+mean_ppl = np.mean(pplx_map)
+burstiness = np.max(pplx_map)
+```
+
+The introduction of PPLx makes the model not only consider the overall perplexity but also capture the abnormal fluctuations within the text, thus improving the accuracy of AI content detection.
+
+## Key Concepts
+
+- **Perplexity (PPL)**: Measures the "perplexity" of the language model for the text, with lower values indicating the text is more natural.
+
+- **Burstiness**: The maximum perplexity in the text, reflecting local abnormality.
+
+- **Random Forest (RF)**: An ensemble machine learning model combining multiple decision trees for the final classification.
+
+## Applicable Scenarios
+
+- Detecting whether academic papers, articles, or social media content are AI-generated.
+
+- Serving as an auxiliary tool for content review, academic integrity, and other scenarios.

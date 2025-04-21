@@ -113,6 +113,18 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/omniknowsxyz',
     uid: 'blog-2',
   },
+  {
+    title: {
+      en: 'AI-Content-Classifier Project Architecture and Core Concepts',
+      zh: 'AI-Content-Classifier 项目架构与核心概念',
+    },
+    description: {
+      en: 'A graceful AI content classifier project architecture and core concepts based on Python.',
+      zh: '一个优雅基于python的AI内容分类器项目架构与核心概念。',
+    },
+    link: '/blog/zeroai',
+    uid: 'blog-3',
+  },
 ]
 
 export const SOCIAL_LINKS: SocialLink[] = [
