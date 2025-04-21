@@ -3,6 +3,7 @@ import { TextMorph } from '@/components/ui/text-morph'
 import { ScrollProgress } from '@/components/ui/scroll-progress'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import clsx from 'clsx'
+import { useLocale } from '@/lib/locale-context'
 
 function CopyButton() {
   const [text, setText] = useState('Copy')
@@ -117,6 +118,14 @@ export default function LayoutBlogPost({
   children: React.ReactNode
 }) {
   const mainRef = useRef<HTMLElement>(null)
+  const locale = useLocale()
+
+  const licenseText = locale === 'zh'
+    ? '本文内容采用'
+    : 'This work is licensed under'
+  const licenseSuffix = locale === 'zh'
+    ? '协议进行许可。'
+    : '.'
 
   return (
     <>
@@ -146,6 +155,20 @@ export default function LayoutBlogPost({
         >
           {children}
         </main>
+        {/* 协议标志（多语言+图标） */}
+        <footer className="mt-12 text-center text-xs text-zinc-500 dark:text-zinc-400">
+          {licenseText}
+          <a
+            href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1"
+            target="_blank"
+            rel="license noopener noreferrer"
+            style={{ display: 'inline-block' }}
+            className="underline mx-1"
+          >
+            CC BY-NC-SA 4.0
+          </a>
+          {licenseSuffix}
+        </footer>
       </div>
     </>
   )
