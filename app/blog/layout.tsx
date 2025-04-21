@@ -127,8 +127,8 @@ export default function LayoutBlogPost({
     ? '本文内容采用'
     : 'This work is licensed under'
   const licenseSuffix = locale === 'zh'
-    ? '协议进行许可。'
-    : '.'
+    ? '协议进行许可。生成式AI可能被用于文章润色、翻译等工作。'
+    : '. Generative AI may be used for text polishing, translation, etc.'
 
   return (
     <>
