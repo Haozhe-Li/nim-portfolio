@@ -9,6 +9,7 @@ const translations: Record<Locale, Record<string, any>> = {
       tagline: 'AI enthusiast / Full-stack / Product / ...',
       about: 'About',
       resume: 'CV',
+      resumeURL: 'https://cdn.haozheli.com/HaozheLi_Resume.pdf'
     },
     footer: {
       copy1: '© 2025 Haozhe Li.',
@@ -33,6 +34,7 @@ const translations: Record<Locale, Record<string, any>> = {
       tagline: 'AI enthusiast / Full-stack / Product / ...',
       about: '关于我',
       resume: '简历',
+      resumeURL: 'https://cdn.haozheli.com/HaozheLi_Resume_zh.pdf'
     },
     footer: {
       copy1: '© 2025 李浩哲。',
