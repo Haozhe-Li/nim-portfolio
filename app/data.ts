@@ -51,6 +51,17 @@ export const PROJECTS: Project[] = [
     thumbnail: 'https://cdn.haozheli.com/project1.webp',
     id: 'project2',
   },
+  {
+    name: { en: 'Zero AI Detector', zh: 'Zero AI 检测器' },
+    description: {
+      en: 'Smart AI content detector.',
+      zh: '智能的AI内容检测器。',
+    },
+    link: '/blog/zeroai',
+    video: 'https://cdn.haozheli.com/zeroai.mp4',
+    thumbnail: 'https://cdn.haozheli.com/project3.webp',
+    id: 'project3',
+  },
 ]
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
@@ -115,8 +126,8 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     title: {
-      en: 'AI-Content-Classifier Project Architecture and Core Concepts',
-      zh: 'AI-Content-Classifier 项目架构与核心概念',
+      en: 'Zero AI Project Architecture and Core Concepts',
+      zh: 'Zero AI 项目架构与核心概念',
     },
     description: {
       en: 'A graceful AI content classifier project architecture and core concepts based on Python.',
