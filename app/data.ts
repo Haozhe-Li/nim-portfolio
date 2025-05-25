@@ -67,7 +67,7 @@ export const PROJECTS: Project[] = [
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
     company: { en: 'Huawei', zh: '华为' },
-    title: { en: 'Incoming AI/ML Engineer Intern', zh: 'AI/ML 实习工程师（待入职）' },
+    title: { en: 'AI/ML Engineer Intern', zh: 'AI/ML 工程师实习' },
     start: '2025.5',
     end: '',
     link: 'https://huawei.com',
