@@ -10,27 +10,44 @@
 
 ## Overview
 
-Omni is an advanced search engine engineered to deliver precise, context-aware answers to user queries. By leveraging cutting-edge AI models and state-of-the-art retrieval methodologies, Omni transcends traditional keyword-based search paradigms. It interprets the intent behind user inquiries, providing results that are both highly relevant and insightful. Whether tackling complex topics or seeking quick answers, Omni ensures an intuitive, efficient, and tailored search experience.
+Omni is a Compound AI Agent System equipped with capabilities such as autonomous planning, real-time internet connectivity, web document reading, deep reasoning, code writing, and debugging. Unlike traditional search engines and chatbot systems, Omni not only understands user intent with precision but also generates answers based on real-time internet information, effectively avoiding hallucinations. Additionally, Omni offers personalized services, such as providing tailored content based on user location and personal information (e.g., weather, news). Rest assured, your data is fully protected and will not be accessed by anyone (including us), nor do we have any mechanisms to store this data.
 
 ## Features
 
 <Video
   src="https://cdn.haozheli.com/omni_switch.mp4"
-  alt="Cover video of Omni Switching Mode"
+  alt="Omni Switching Mode Video"
   caption="Fast Mode and Omni Mode"
 />
 
-- **Fast Mode:** Omni rapidly scans webpages, delivering results within seconds to ensure users receive information without delay.
-- **Omni Mode:** This mode showcases Omni's full potential. By employing advanced reasoning capabilities, Omni meticulously interprets user queries, analyzing them word by word. It explores a broader range of sources—three times more than conventional methods—synthesizing comprehensive results, evaluating their quality, and iteratively improving to guarantee the most accurate and reliable answers.
+Omni offers two modes: By default, Omni operates in Omni Light (Light Mode), which provides quick and precise answers within one second. By enabling Omni Mode (Full Mode), users can activate Omni's full capabilities. In Omni Mode, multiple AI agents collaborate to deliver the most accurate and comprehensive answers. The differences are outlined in the table below:
+
+|          | Light Mode                                                                                                     | Omni Mode                                                                                                                                                                                                                                                                                   |
+| -------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Use Case | Obtain quick and precise answers with accurate web sources                                                    | Get comprehensive answers for complex tasks like programming and mathematics,<br />upload documents or webpages for Omni to generate answers based on them.                                                                                                                               |
+| Speed    | ⚡️⚡️⚡️⚡️⚡️<br />~1 second                                                                                     | ⚡️⚡️⚡️<br />~3-10 seconds, depending on the complexity of the question                                                                                                                                                                                                                      |
+| Features | ✅ Powered by top-tier AI<br />✅ Real-time internet search<br />✅ Personalized based on your location<br />✅ Lightning-fast response<br />✅ Accurate information sources<br />✅ Privacy protection<br />❌ Struggles with complex programming and mathematics<br />❌ Cannot read user-provided documents or webpages<br />❌ Basic weather queries<br /> | ✅ Powered by top-tier AI<br />✅ More comprehensive real-time internet search, 3x additional webpage reading<br />✅ Personalized based on your location<br />❌ 3-10 seconds response time<br />✅ Accurate information sources, 3x additional webpage reading<br />✅ Privacy protection<br />✅ Handles complex programming and mathematics<br />✅ Generates answers based on provided webpages and documents<br />✅ Professional-grade weather queries<br /> |
 
 ## Technologies
 
-### Frontend
+Omni is built using multiple advanced technologies. Below is a detailed introduction to its technical components:
 
-Omni utilizes Vercel and Cloudflare to ensure swift webpage delivery, global accessibility, and a seamless user experience.
+### Architecture
+
+Omni employs a cutting-edge Hierarchical Supervisor Multi-Agent architecture. This design enables efficient collaboration among multiple agents, each specializing in its domain, while a central supervisor coordinates their actions to ensure task integrity and accuracy.
 
 ### Backend
 
-Omni employs a multi-agent architecture for its backend. When a user submits a query, Omni decomposes it into multiple sub-questions, enabling a broader and more granular search across diverse sources. The system then aggregates, summarizes, and reasons over the collected data to construct an initial response. 
+Omni's backend is constructed using Langgraph and Langchain, combined with Cloudflare Workers' distributed architecture to achieve edge computing. This design enhances system responsiveness and ensures high availability globally. Langgraph provides robust graphical reasoning capabilities, while Langchain supports complex chain-based task processing, enabling Omni to efficiently handle user requests.
 
-To ensure the highest quality, an evaluation layer is introduced to validate and refine the output. This iterative process allows Omni to self-optimize, ensuring that only the most accurate and insightful answers are delivered to users.
+### Frontend
+
+Omni's frontend is powered by Next.js, leveraging its high performance and flexibility to create a user-friendly interface. Deployed on Cloudflare Workers, the frontend ensures quick responses to user actions while maintaining secure and stable data transmission.
+
+### Large Language Models
+
+Omni integrates multiple open-source large language models, including Llama 4, Llama 3.3, Llama 3.1, and Qwen3. These models utilize Groq's LPU (Language Processing Unit) for high-speed reasoning, ensuring answer accuracy and real-time performance. Additionally, Omni employs multi-model collaboration techniques to provide professional-grade support in various fields, such as programming, mathematical reasoning, and document analysis.
+
+### Data Privacy and Security
+
+Omni attaches great importance to the privacy and security of user data in its design. We will not collect your information through any means, and of course, the hardware we use does not have the ability to store user data. Personalized services are turned off by default, and you can turn them on as needed. All chat messages are stored locally to ensure the security and privacy of user data. Omni adopts HTTPS technology to ensure secure and reliable communication between users and the system.
