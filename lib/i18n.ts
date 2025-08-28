@@ -9,7 +9,7 @@ const translations: Record<Locale, Record<string, any>> = {
       tagline: 'AI enthusiast / Full-stack / Product / ...',
       about: 'About',
       resume: 'CV',
-      resumeURL: 'https://cdn.haozheli.com/HaozheLi_Resume.pdf'
+      resumeURL: 'https://cdn.haozheli.com/HaozheLi_Resume.pdf',
     },
     footer: {
       copy1: '© 2025 Haozhe Li.',
@@ -20,12 +20,19 @@ const translations: Record<Locale, Record<string, any>> = {
       zh: '中',
     },
     home: {
-      description: 'Focused on leveraging AI into daily life. Bridging the gap between thoughts and engineering.',
+      description:
+        'Focused on leveraging AI into daily life. Bridging the gap between thoughts and engineering.',
       selectedProjects: 'Selected Projects',
       workExperience: 'Work Experience',
       blog: 'Blog',
       connect: 'Connect',
       contactLine: 'Feel free to contact me at',
+    },
+    notFound: {
+      title: 'Page Not Found',
+      description:
+        'The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.',
+      backHome: 'Back to Home',
     },
   },
   zh: {
@@ -34,7 +41,7 @@ const translations: Record<Locale, Record<string, any>> = {
       tagline: 'AI enthusiast / Full-stack / Product / ...',
       about: '关于我',
       resume: '简历',
-      resumeURL: 'https://cdn.haozheli.com/HaozheLi_Resume_zh.pdf'
+      resumeURL: 'https://cdn.haozheli.com/HaozheLi_Resume_zh.pdf',
     },
     footer: {
       copy1: '© 2025 李浩哲。',
@@ -51,6 +58,11 @@ const translations: Record<Locale, Record<string, any>> = {
       blog: '博客',
       connect: '联系',
       contactLine: '欢迎通过以下邮箱联系我：',
+    },
+    notFound: {
+      title: '页面未找到',
+      description: '您访问的页面可能已被删除、更名或暂时不可用。',
+      backHome: '返回首页',
     },
   },
 }

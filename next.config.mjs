@@ -4,10 +4,6 @@ import createMDX from '@next/mdx';
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-  i18n: {
-    locales: ['en', 'zh'],
-    defaultLocale: 'en',
-  },
 };
 
 const withMDX = createMDX({
