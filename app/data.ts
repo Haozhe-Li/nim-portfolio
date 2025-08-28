@@ -67,9 +67,9 @@ export const PROJECTS: Project[] = [
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
     company: { en: 'Huawei', zh: '华为' },
-    title: { en: 'AI/ML Engineer Intern', zh: 'AI/ML 工程师实习' },
+    title: { en: 'AI Engineer Intern', zh: 'AI工程师实习' },
     start: '2025.5',
-    end: '',
+    end: '2025.8',
     link: 'https://huawei.com',
     id: 'work1',
   },
@@ -83,7 +83,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
   },
   {
     company: { en: 'RPGGO.AI', zh: 'RPGGO.AI' },
-    title: { en: 'AI Engineer Intern', zh: 'AI 实习工程师' },
+    title: { en: 'AI Engineer Intern', zh: 'AI工程师实习' },
     start: '2024.5',
     end: '2024.8',
     link: 'https://rpggo.ai',
