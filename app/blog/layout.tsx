@@ -48,11 +48,12 @@ function BlogTOC({ containerRef }: { containerRef: React.RefObject<HTMLElement |
       if (!node.id) {
         node.id = node.textContent
           ?.toLowerCase()
-          .replace(/[^a-z0-9\u4e00-\u9fa5]+/gi, '-')
+          .replace(/[^a-z0-9\u4e00-\u9fa5\s]+/gi, '')
+          .replace(/\s+/g, '-')
           .replace(/^-+|-+$/g, '') || ''
       }
       return { id: node.id, text: node.textContent || '' }
-    })
+    }).filter(h => h.id && h.text) // 过滤掉空的标题
     setHeadings(hs)
   }, [containerRef, locale])
 
@@ -122,6 +123,29 @@ export default function LayoutBlogPost({
 }) {
   const mainRef = useRef<HTMLElement>(null)
   const locale = useLocale()
+
+  // 处理页面加载时的锚点跳转
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash
+      if (hash && mainRef.current) {
+        setTimeout(() => {
+          const element = document.getElementById(hash.slice(1))
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
+        }, 100) // 延迟确保DOM已完全渲染
+      }
+    }
+
+    // 页面加载时检查是否有锚点
+    if (typeof window !== 'undefined') {
+      handleHashChange()
+      // 监听哈希变化
+      window.addEventListener('hashchange', handleHashChange)
+      return () => window.removeEventListener('hashchange', handleHashChange)
+    }
+  }, [])
 
   const licenseText = locale === 'zh'
     ? '本文内容采用'

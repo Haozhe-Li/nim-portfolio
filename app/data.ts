@@ -70,7 +70,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     title: { en: 'AI Engineer Intern', zh: 'AI工程师实习' },
     start: '2025.5',
     end: '2025.8',
-    link: 'https://huawei.com',
+    link: 'https://www.huawei.com',
     id: 'work1',
   },
   {
