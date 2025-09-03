@@ -118,7 +118,7 @@ export const BLOG_POSTS: BlogPost[] = [
       zh: 'Omni Knows XYZ 背后的故事：用AI革新搜索引擎',
     },
     description: {
-      en: 'Omni is a search engine that knows from x to y to z.',
+      en: 'Omni is a search engine that knows everything.',
       zh: 'Omni 是一个无所不知的智能搜索引擎。',
     },
     link: '/blog/omniknowsxyz',
@@ -131,7 +131,7 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     description: {
       en: 'A graceful AI content classifier project architecture and core concepts based on Python.',
-      zh: '一个优雅基于python的AI内容分类器项目架构与核心概念。',
+      zh: '一个基于python的优雅的AI内容分类器：项目架构与核心概念。',
     },
     link: '/blog/zeroai',
     uid: 'blog-3',
