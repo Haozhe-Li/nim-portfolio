@@ -29,17 +29,17 @@ type SocialLink = {
 }
 
 export const PROJECTS: Project[] = [
-  {
-    name: { en: 'Chat Syllabus', zh: 'Chat Syllabus' },
-    description: {
-      en: 'Know better about your courses with AI.',
-      zh: '用 AI 更好地了解你的课程。',
-    },
-    link: '/blog/chatsyllabus',
-    video: 'https://cdn.haozheli.com/chatsyllabus.mp4',
-    thumbnail: 'https://cdn.haozheli.com/project2.webp',
-    id: 'project1',
-  },
+  // {
+  //   name: { en: 'Chat Syllabus', zh: 'Chat Syllabus' },
+  //   description: {
+  //     en: 'Know better about your courses with AI.',
+  //     zh: '用 AI 更好地了解你的课程。',
+  //   },
+  //   link: '/blog/chatsyllabus',
+  //   video: 'https://cdn.haozheli.com/chatsyllabus.mp4',
+  //   thumbnail: 'https://cdn.haozheli.com/project2.webp',
+  //   id: 'project1',
+  // },
   {
     name: { en: 'Omni Knows XYZ', zh: '奥秘尽知' },
     description: {
