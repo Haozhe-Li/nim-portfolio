@@ -21,7 +21,6 @@ export function Header() {
         >
           {t.header.tagline}
         </TextEffect>
-        {/* 按钮组已移至首页 description 下方，这里移除按钮 */}
       </div>
     </header>
   )

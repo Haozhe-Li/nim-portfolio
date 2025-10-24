@@ -66,19 +66,30 @@ export const PROJECTS: Project[] = [
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
+    company: {
+      en: 'U of I Grainger College of Engineering',
+      zh: '伊利诺伊大学格兰杰工程学院',
+    },
+    title: { en: 'AI Engineer (Part-time)', zh: 'AI工程师（兼职）' },
+    start: '2025.10',
+    end: '-',
+    link: 'https://grainger.illinois.edu',
+    id: 'work5',
+  },
+  {
+    company: { en: 'Illinois Math Lab', zh: '伊利诺伊大学数学实验室' },
+    title: { en: 'Software Engineer (Part-time)', zh: '软件工程师（兼职）' },
+    start: '2025.8',
+    end: '-',
+    link: 'https://illinois.edu',
+    id: 'work1',
+  },
+  {
     company: { en: 'Huawei', zh: '华为' },
     title: { en: 'AI Engineer Intern', zh: 'AI工程师实习' },
     start: '2025.5',
     end: '2025.8',
     link: 'https://www.huawei.com',
-    id: 'work1',
-  },
-  {
-    company: { en: 'Chat Syllabus', zh: 'Chat Syllabus' },
-    title: { en: 'Start-up Founder', zh: '初创公司创始人' },
-    start: '2024.8',
-    end: '',
-    link: 'https://chatsyllabus.xyz',
     id: 'work2',
   },
   {
