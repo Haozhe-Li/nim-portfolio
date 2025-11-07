@@ -77,6 +77,17 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     id: 'work5',
   },
   {
+    company: {
+      en: 'Cancer Center at University of Illinois',
+      zh: '伊利诺伊大学癌症研究中心',
+    },
+    title: { en: 'Research Assistant', zh: '研究助理' },
+    start: '2025.9',
+    end: '',
+    link: 'https://cancer.illinois.edu/',
+    id: 'work6',
+  },
+  {
     company: { en: 'Illinois Math Lab', zh: '伊利诺伊大学数学实验室' },
     title: { en: 'Software Engineer (Part-time)', zh: '软件工程师（兼职）' },
     start: '2025.8',
@@ -101,7 +112,10 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     id: 'work3',
   },
   {
-    company: { en: 'University of Illinois', zh: '伊利诺伊大学' },
+    company: {
+      en: 'University of Illinois CS 124 Course',
+      zh: '伊利诺伊大学 CS124课程',
+    },
     title: { en: 'Course Assistant', zh: '课程助理' },
     start: '2023.1',
     end: '2023.5',

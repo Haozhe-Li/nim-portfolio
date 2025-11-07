@@ -123,8 +123,22 @@ export default function LayoutBlogPost({
 }) {
   const mainRef = useRef<HTMLElement>(null)
   const locale = useLocale()
+  const [showTOC, setShowTOC] = useState(false)
 
-  // 处理页面加载时的锚点跳转
+  // Determine whether TOC can be fully displayed (avoid half-visible on medium screens like iPad)
+  useEffect(() => {
+    const evaluateTOCVisibility = () => {
+      // The current positioning uses: left: calc(50vw - 640px - 12px)
+      // TOC should only show if that computed left >= 0 so it's fully within the viewport.
+      // Solve for window.innerWidth: (window.innerWidth / 2) - 640 - 12 >= 0 => innerWidth >= 1304
+      const canShow = window.innerWidth >= 1304
+      setShowTOC(canShow)
+    }
+    evaluateTOCVisibility()
+    window.addEventListener('resize', evaluateTOCVisibility)
+    return () => window.removeEventListener('resize', evaluateTOCVisibility)
+  }, [])
+
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash
@@ -168,13 +182,17 @@ export default function LayoutBlogPost({
         <CopyButton />
       </div>
       <div className="relative max-w-5xl mx-auto w-full mt-24 pb-20 px-4">
-        {/* 固定居中的目录，不影响内容宽度 */}
-        <div className="hidden lg:block fixed z-30 top-1/2 -translate-y-1/2"
-          style={{
-            left: `calc(50vw - 640px - 12px)`, // 12px为内容区与目录的间距
-          }}>
-          <BlogTOC containerRef={mainRef} />
-        </div>
+        {/* 固定居中的目录，不影响内容宽度；如果空间不足则不渲染避免半截显示 */}
+        {showTOC && (
+          <div
+            className="hidden lg:block fixed z-30 top-1/2 -translate-y-1/2"
+            style={{
+              left: `calc(50vw - 640px - 12px)`, // 12px为内容区与目录的间距
+            }}
+          >
+            <BlogTOC containerRef={mainRef} />
+          </div>
+        )}
         {/* 主体内容不再有 ml-xx，宽度与无目录时一致 */}
         <main
           ref={mainRef}
