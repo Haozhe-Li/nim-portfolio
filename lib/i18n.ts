@@ -27,6 +27,18 @@ const translations: Record<Locale, Record<string, any>> = {
       blog: 'Blog',
       connect: 'Connect',
       contactLine: 'Feel free to contact me at',
+      readMoreBlogs: 'Read More Blogs',
+    },
+    blogHome: {
+      title: 'Blog',
+      subtitle: 'Stories, projects, and research notes.',
+      description:
+        'Browse every post. Titles are pulled straight from the Markdown sources.',
+      searchLabel: 'Search posts',
+      searchPlaceholder: 'Search posts…',
+      empty: 'No posts matched your search.',
+      total: 'Total {count} posts',
+      page: 'Page {current} of {total}',
     },
     notFound: {
       title: 'Page Not Found',
@@ -58,6 +70,17 @@ const translations: Record<Locale, Record<string, any>> = {
       blog: '博客',
       connect: '联系',
       contactLine: '欢迎通过以下邮箱联系我：',
+      readMoreBlogs: '阅读更多博客',
+    },
+    blogHome: {
+      title: '博客',
+      subtitle: '记录项目、灵感与实践。',
+      description: '这里收录了全部文章，标题直接来自每篇 Markdown 内容。',
+      searchLabel: '搜索文章',
+      searchPlaceholder: '搜索文章…',
+      empty: '没有找到匹配的文章。',
+      total: '共 {count} 篇文章',
+      page: '第 {current}/{total} 页',
     },
     notFound: {
       title: '页面未找到',

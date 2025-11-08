@@ -4,6 +4,7 @@ import { ScrollProgress } from '@/components/ui/scroll-progress'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import clsx from 'clsx'
 import { useLocale } from '@/lib/locale-context'
+import { usePathname } from 'next/navigation'
 
 function CopyButton() {
   const [text, setText] = useState('Copy')
@@ -124,9 +125,12 @@ export default function LayoutBlogPost({
   const mainRef = useRef<HTMLElement>(null)
   const locale = useLocale()
   const [showTOC, setShowTOC] = useState(false)
+  const pathname = usePathname()
+  const isIndexPage = pathname === '/blog'
 
   // Determine whether TOC can be fully displayed (avoid half-visible on medium screens like iPad)
   useEffect(() => {
+    if (isIndexPage) return
     const evaluateTOCVisibility = () => {
       // The current positioning uses: left: calc(50vw - 640px - 12px)
       // TOC should only show if that computed left >= 0 so it's fully within the viewport.
@@ -137,9 +141,10 @@ export default function LayoutBlogPost({
     evaluateTOCVisibility()
     window.addEventListener('resize', evaluateTOCVisibility)
     return () => window.removeEventListener('resize', evaluateTOCVisibility)
-  }, [])
+  }, [isIndexPage])
 
   useEffect(() => {
+    if (isIndexPage) return
     const handleHashChange = () => {
       const hash = window.location.hash
       if (hash && mainRef.current) {
@@ -159,7 +164,7 @@ export default function LayoutBlogPost({
       window.addEventListener('hashchange', handleHashChange)
       return () => window.removeEventListener('hashchange', handleHashChange)
     }
-  }, [])
+  }, [isIndexPage])
 
   const licenseText = locale === 'zh'
     ? '本文内容采用'
@@ -170,20 +175,29 @@ export default function LayoutBlogPost({
 
   return (
     <>
-      <div className="pointer-events-none fixed left-0 top-0 z-10 h-12 w-full bg-gray-100 to-transparent backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)] dark:bg-zinc-950" />
-      <ScrollProgress
-        className="fixed top-0 z-20 h-0.5 bg-gray-300 dark:bg-zinc-600"
-        springOptions={{
-          bounce: 0,
-        }}
-      />
+      {!isIndexPage && (
+        <>
+          <div className="pointer-events-none fixed left-0 top-0 z-10 h-12 w-full bg-gray-100 to-transparent backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)] dark:bg-zinc-950" />
+          <ScrollProgress
+            className="fixed top-0 z-20 h-0.5 bg-gray-300 dark:bg-zinc-600"
+            springOptions={{
+              bounce: 0,
+            }}
+          />
+        </>
+      )}
 
-      <div className="absolute right-4 top-24">
-        <CopyButton />
-      </div>
-      <div className="relative max-w-5xl mx-auto w-full mt-24 pb-20 px-4">
+      {!isIndexPage && (
+        <div className="absolute right-4 top-24">
+          <CopyButton />
+        </div>
+      )}
+      <div className={clsx(
+        'relative mx-auto w-full px-4 pb-20',
+        isIndexPage ? 'max-w-6xl pt-0' : 'max-w-5xl mt-24'
+      )}>
         {/* 固定居中的目录，不影响内容宽度；如果空间不足则不渲染避免半截显示 */}
-        {showTOC && (
+        {!isIndexPage && showTOC && (
           <div
             className="hidden lg:block fixed z-30 top-1/2 -translate-y-1/2"
             style={{
@@ -196,24 +210,31 @@ export default function LayoutBlogPost({
         {/* 主体内容不再有 ml-xx，宽度与无目录时一致 */}
         <main
           ref={mainRef}
-          className="prose prose-gray flex-1 dark:prose-invert prose-h1:text-xl prose-h1:font-medium prose-h2:mt-12 prose-h2:scroll-m-20 prose-h2:text-lg prose-h2:font-medium prose-h3:text-base prose-h3:font-medium prose-h4:font-medium prose-h5:text-base prose-h5:font-medium prose-h6:text-base prose-h6:font-medium prose-strong:font-medium"
+          className={clsx(
+            'flex-1',
+            isIndexPage
+              ? 'w-full'
+              : 'prose prose-gray dark:prose-invert prose-h1:text-xl prose-h1:font-medium prose-h2:mt-12 prose-h2:scroll-m-20 prose-h2:text-lg prose-h2:font-medium prose-h3:text-base prose-h3:font-medium prose-h4:font-medium prose-h5:text-base prose-h5:font-medium prose-h6:text-base prose-h6:font-medium prose-strong:font-medium'
+          )}
         >
           {children}
         </main>
         {/* 协议标志（多语言+图标） */}
-        <footer className="mt-12 text-center text-xs text-zinc-500 dark:text-zinc-400">
-          {licenseText}
-          <a
-            href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1"
-            target="_blank"
-            rel="license noopener noreferrer"
-            style={{ display: 'inline-block' }}
-            className="underline mx-1"
-          >
-            CC BY-NC-SA 4.0
-          </a>
-          {licenseSuffix}
-        </footer>
+        {!isIndexPage && (
+          <footer className="mt-12 text-center text-xs text-zinc-500 dark:text-zinc-400">
+            {licenseText}
+            <a
+              href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1"
+              target="_blank"
+              rel="license noopener noreferrer"
+              style={{ display: 'inline-block' }}
+              className="underline mx-1"
+            >
+              CC BY-NC-SA 4.0
+            </a>
+            {licenseSuffix}
+          </footer>
+        )}
       </div>
     </>
   )
