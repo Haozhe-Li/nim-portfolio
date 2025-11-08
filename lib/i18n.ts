@@ -31,9 +31,8 @@ const translations: Record<Locale, Record<string, any>> = {
     },
     blogHome: {
       title: 'Blog',
-      subtitle: 'Stories, projects, and research notes.',
-      description:
-        'Browse every post. Titles are pulled straight from the Markdown sources.',
+      subtitle: 'Stories, Projects, and Notes.',
+      description: 'Notes from a curious mind on code, data, and design.',
       searchLabel: 'Search posts',
       searchPlaceholder: 'Search posts…',
       empty: 'No posts matched your search.',
@@ -75,7 +74,7 @@ const translations: Record<Locale, Record<string, any>> = {
     blogHome: {
       title: '博客',
       subtitle: '记录项目、灵感与实践。',
-      description: '这里收录了全部文章，标题直接来自每篇 Markdown 内容。',
+      description: '好奇之心的笔记：关于代码、数据与设计。',
       searchLabel: '搜索文章',
       searchPlaceholder: '搜索文章…',
       empty: '没有找到匹配的文章。',
