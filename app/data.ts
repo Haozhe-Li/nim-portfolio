@@ -29,17 +29,17 @@ type SocialLink = {
 }
 
 export const PROJECTS: Project[] = [
-  // {
-  //   name: { en: 'Chat Syllabus', zh: 'Chat Syllabus' },
-  //   description: {
-  //     en: 'Know better about your courses with AI.',
-  //     zh: '用 AI 更好地了解你的课程。',
-  //   },
-  //   link: '/blog/chatsyllabus',
-  //   video: 'https://cdn.haozheli.com/chatsyllabus.mp4',
-  //   thumbnail: 'https://cdn.haozheli.com/project2.webp',
-  //   id: 'project1',
-  // },
+  {
+    name: { en: 'Pictures', zh: '智能相册' },
+    description: {
+      en: 'An AI-powered gallery for photographers.',
+      zh: '为摄影师打造的AI智能相册',
+    },
+    link: '/blog/pictures',
+    video: 'https://cdn.haozheli.com/pictures-home.mp4',
+    thumbnail: 'https://cdn.haozheli.com/pictures-thumb.webp',
+    id: 'project1',
+  },
   {
     name: { en: 'Omni Knows XYZ', zh: '奥秘尽知' },
     description: {
@@ -50,17 +50,6 @@ export const PROJECTS: Project[] = [
     video: 'https://cdn.haozheli.com/omniknowsxyz.mp4',
     thumbnail: 'https://cdn.haozheli.com/project1.webp',
     id: 'project2',
-  },
-  {
-    name: { en: 'Zero AI Detector', zh: 'Zero AI 检测器' },
-    description: {
-      en: 'Smart AI content detector.',
-      zh: '智能的AI内容检测器。',
-    },
-    link: '/blog/zeroai',
-    video: 'https://cdn.haozheli.com/zeroai.mp4',
-    thumbnail: 'https://cdn.haozheli.com/project3.webp',
-    id: 'project3',
   },
 ]
 
@@ -125,6 +114,18 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 ]
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    title: {
+      en: 'Introducing Pictures: An AI-Powered Gallery for Photographers',
+      zh: 'Pictures：面向摄影师的 AI 智能作品画廊',
+    },
+    description: {
+      en: 'An AI-powered gallery for photographers, featuring hybrid embeddings, multi-layer caching, and a distributed architecture.',
+      zh: '为摄影师打造的 AI 智能相册，特色功能包括混合嵌入、多层缓存设计与分布式架构。',
+    },
+    link: '/blog/pictures',
+    uid: 'blog-4',
+  },
   {
     title: {
       en: 'Behind Chat Syllabus: Building a Smart Course Assistant',

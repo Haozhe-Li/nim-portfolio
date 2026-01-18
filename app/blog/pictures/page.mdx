@@ -1,0 +1,165 @@
+# Introducing Pictures: An AI-Powered Gallery for Photographers
+
+
+<Video
+  src="https://cdn.haozheli.com/pictures-home.mp4"
+  alt="Cover video of Pictures"
+  caption="Pictures"
+/>
+
+
+Project Link: [haozheli.pictures](https://www.haozheli.pictures/)
+
+
+## Overview
+
+
+Photographers often need a platform to systematically showcase their work. However, as their portfolio grows, traditional retrieval and recommendation methods become inefficient and cumbersome. As a creator, you want your audience to see **the works that truly interest them**, not get lost in countless images.
+
+
+**Pictures** was created for that very reason.  
+By leveraging multimodal AI technology, this project enables a **cross-language, cross-modality natural language search experience**. Whether starting from an image or a short description, users can quickly find the most semantically relevant photography in the Gallery—ensuring that every piece truly *gets seen*.
+
+
+------
+
+
+## Key Features
+
+
+The following features make Pictures stand apart from traditional photo showcase websites.
+
+
+#### Natural Language Search
+
+
+<Video
+  src="https://cdn.haozheli.com/pictures-search.mp4"
+  alt="Cover video of Pictures"
+  caption="Pictures Search"
+/>
+
+
+In Pictures, simply type a short description into the search bar. The system understands your intent and finds the most relevant works.  
+No more worrying about “precise keywords”—our AI understands semantics and supports fuzzy matching to return the best results.
+
+<Video
+  src="https://cdn.haozheli.com/pictures-multilingual.mp4"
+  alt="Cover video of Pictures"
+  caption="Pictures Multilingual Search"
+/>
+
+The search function also natively supports multilingual input, completely removing language barriers.
+
+
+#### Image-to-Image Search
+
+
+<Video
+  src="https://cdn.haozheli.com/pictures-similar.mp4"
+  alt="Cover video of Pictures"
+  caption="Pictures Similar Search"
+/>
+
+
+If you’re particularly fond of a photo, **image-to-image search** helps you discover more similar masterpieces.  
+Click “Find Similar,” and the system automatically retrieves and returns photos that are most visually and semantically similar—no manual input needed.
+
+
+#### Random Recommendations
+
+
+<Video
+  src="https://cdn.haozheli.com/pictures-random-search.mp4"
+  alt="Cover video of Pictures"
+  caption="Pictures Random Search"
+/>
+
+
+Looking for inspiration? Try **Random Recommendations**.  
+Our recommendation system intelligently curates photography that aligns with your tastes, making discovery effortless and enjoyable.
+
+
+------
+
+
+## Technical Details
+
+
+Pictures combines multiple cutting-edge technologies to deliver a high-quality, low-latency search and recommendation experience.
+
+
+#### Hybrid Embedding and Hybrid Retrieval
+
+
+This project adopts a **hybrid embedding** and **hybrid retrieval** strategy.  
+The core idea: **represent and understand each image in multiple ways, then combine results from different perspectives during search.**
+
+
+The overall process is as follows:
+
+<Cover
+  src="https://cdn.haozheli.com/pictures-flow-chart.webp"
+  alt="Flow Chart of Pictures"
+  caption="Pictures Flow Chart"
+/>
+
+
+1. **Metadata Embedding**  
+   First, extract image metadata such as EXIF, title, and description, and embed them using:  
+   - **BM25** to generate sparse vectors for keyword-level matching.  
+   - **OpenAI CLIP (text)** to generate dense vectors for capturing semantic information and enabling fuzzy search.
+2. **Visual Embedding**  
+   Use **OpenAI CLIP (image)** to embed the visual content, generating dense vectors that capture both visual and semantic information.
+3. **Vector Storage**  
+   All three vectors are upserted into the vector database, forming the foundation of retrieval.
+4. **Search and Result Fusion**  
+   During search, the user’s query is embedded in all three forms simultaneously. The results are merged using a weighted strategy and the **RRF (Reciprocal Rank Fusion)** algorithm, returning the most comprehensive and relevant output.
+
+
+------
+
+
+#### Multi-Layer Caching Design
+
+
+Embedding models are computationally expensive, and vector retrieval introduces latency.  
+To minimize response time and ensure a smooth user experience, Pictures implements a **three-layer Redis caching architecture**.
+
+
+<Cover
+  src="https://cdn.haozheli.com/pictures-cache-layer.webp"
+  alt="Cache Layer of Pictures"
+  caption="Pictures Cache Layer"
+/>
+
+
+**Layer 1: Front-End Cache (Next.js)**  
+When users visit the website, the front end first fetches homepage recommendations directly from Redis instead of making immediate backend calls.  
+This approach:  
+- Avoids high latency from serverless backend cold starts.  
+- Significantly reduces backend computation load.
+
+
+**Layer 2: Backend Cache (Service Layer)**  
+The backend caches recommendation results so that identical or similar requests can be quickly served, improving throughput.
+
+
+**Layer 3: Embedding Cache (Embedding Layer)**  
+Query embeddings are cached so that repeated queries reuse existing vectors instead of recomputing them, speeding up subsequent searches.
+
+
+------
+
+
+#### Distributed Architecture and Global Access
+
+
+To ensure consistent, fast access for users worldwide, Pictures uses a distributed infrastructure:
+
+
+- Image assets are hosted on **Cloudflare R2**, leveraging its global distributed storage and CDN network for fast image delivery.  
+- The website front end is deployed on **Vercel**, providing low-latency and scalable access through its CDN and Fluid Compute system.
+
+
+Thanks to this architecture, Pictures serves users across the globe with stability and efficiency.

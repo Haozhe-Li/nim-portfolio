@@ -1,0 +1,128 @@
+# Pictures：面向摄影师的 AI 智能作品画廊
+
+<Video
+  src="https://cdn.haozheli.com/pictures-home.mp4"
+  alt="Cover video of Pictures"
+  caption="Pictures"
+/>
+
+项目链接：[haozheli.pictures](https://www.haozheli.pictures/)
+
+## 概述
+
+摄影师往往需要一个平台来系统性地展示自己的作品，但当作品数量不断增长，传统的检索与推荐方式便会迅速变得低效而笨重。作为创作者，你希望观众看到的是**他们真正感兴趣的作品**，而不是在海量图片中迷失。
+
+**Pictures** 正是为此而生。
+在本项目中，借助多模态人工智能技术，我们实现了**跨语言、跨模态的自然语言搜索体验**。无论是一张图片，还是一句简单的描述，你都可以在 Gallery 中迅速找到最符合语义的摄影作品，让作品真正“被看见”。
+
+------
+
+## 主要功能
+
+以下功能使 Pictures 与传统图片展示网站截然不同。
+
+#### 自然语言搜索
+
+<Video
+  src="https://cdn.haozheli.com/pictures-search.mp4"
+  alt="Cover video of Pictures"
+  caption="Pictures Search"
+/>
+
+在 Pictures 的搜索框中，你只需输入一段简短的描述，系统便能理解你的意图并匹配最相关的摄影作品。
+你无需再担心“关键词是否足够精确”——我们的人工智能能够进行语义理解与模糊匹配，返回最优结果。
+
+<Video
+  src="https://cdn.haozheli.com/pictures-multilingual.mp4"
+  alt="Cover video of Pictures"
+  caption="Pictures Multilingual Search"
+/>
+此外，搜索功能原生支持多语言输入，彻底消除语言带来的使用门槛。
+
+#### 以图搜图
+
+<Video
+  src="https://cdn.haozheli.com/pictures-similar.mp4"
+  alt="Cover video of Pictures"
+  caption="Pictures Similar Search"
+/>
+
+当你对某一张作品情有独钟时，**以图搜图**可以帮你发现更多相似佳作。
+只需点击“查找相同”，系统便会自动检索并返回与该图片在语义与视觉特征上最接近的作品，全程无需手动输入任何文本。
+
+#### 随机推荐
+
+<Video
+  src="https://cdn.haozheli.com/pictures-random-search.mp4"
+  alt="Cover video of Pictures"
+  caption="Pictures Random Search"
+/>
+
+想要探索一些新的灵感？试试**随机推荐**。
+我们的推荐系统会基于你的偏好，智能推送你可能喜欢的摄影作品，让发现好作品变成一件轻松而愉悦的事情。
+
+------
+
+## 技术细节
+
+Pictures 通过多种前沿技术的组合，实现了高质量、低延迟的搜索与推荐体验。
+
+#### 混合嵌入与混合检索
+
+本项目采用了**混合嵌入**与**混合检索**的策略。
+核心思想是：**用多种方式理解同一张图片，并在搜索阶段综合多个视角的结果**。
+
+整体流程如下：
+<Cover
+  src="https://cdn.haozheli.com/pictures-flow-chart.webp"
+  alt="Flow Chart of Pictures"
+  caption="Pictures Flow Chart"
+/>
+
+1. **元数据嵌入**
+   首先提取图片的元数据信息，如 EXIF、标题、描述等，并分别使用
+   - **BM25** 生成稀疏向量（Sparse Embedding），用于关键词级匹配
+   - **OpenAI CLIP（文本）** 生成稠密向量（Dense Embedding），用于捕捉语义信息，实现模糊匹配
+2. **图像语义嵌入**
+   使用 **OpenAI CLIP（图像）** 对图片本身进行嵌入，生成包含视觉与语义信息的稠密向量。
+3. **向量存储**
+   将上述三种向量统一 upsert 至向量数据库中，作为后续检索的基础。
+4. **搜索与结果融合**
+   在搜索阶段，用户的 query 会被同时嵌入为对应的三种向量，并并行执行检索。
+   获得初步结果后，系统会基于权重策略与 **RRF（Reciprocal Rank Fusion）** 算法对结果进行融合，最终返回综合性最强、匹配度最高的搜索结果。
+
+------
+
+#### 多层缓存设计
+
+嵌入模型计算成本高、向量检索也存在延迟。为最大程度降低响应时间对用户体验的影响，Pictures 引入了**三层 Redis 缓存架构**。
+
+<Cover
+  src="https://cdn.haozheli.com/pictures-cache-layer.webp"
+  alt="Cache Layer of Pictures"
+  caption="Pictures Cache Layer"
+/>
+
+**第一层：前端缓存（Next.js）**
+用户访问网站时，前端会优先通过路由直接请求 Redis 获取首页推荐内容，而非立即调用后端计算。
+这样做的原因包括：
+
+- 避免 Serverless 后端冷启动带来的高延迟
+- 显著降低后端计算压力
+
+**第二层：后端缓存（服务层）**
+后端会对推荐结果进行缓存，使得相同或相近请求能够被快速响应，进一步提升整体吞吐量。
+
+**第三层：嵌入缓存（Embedding 层）**
+用户的查询嵌入向量会被缓存下来。当相同 query 再次出现时，系统无需重新计算嵌入，而是直接复用缓存向量完成检索。
+
+------
+
+#### 分布式架构与全球访问
+
+为了确保全球用户都能获得一致、快速的访问体验，Pictures 采用了分布式基础设施：
+
+- 图片资源托管于 **Cloudflare R2**，借助其全球分布式存储与 CDN 网络，实现高速图片加载
+- 网站前端部署于 **Vercel**，结合 CDN 与 Fluid Compute，为用户提供低延迟、可扩展的访问体验
+
+通过上述设计，Pictures 能够在全球范围内稳定、高效地服务用户。
