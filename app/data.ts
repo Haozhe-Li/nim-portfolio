@@ -56,6 +56,17 @@ export const PROJECTS: Project[] = [
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
     company: {
+      en: 'University of Illinois CS 101 Course',
+      zh: '伊利诺伊大学 CS101课程',
+    },
+    title: { en: '课程助理', zh: '课程助理' },
+    start: '2026.1',
+    end: '',
+    link: 'https://siebelschool.illinois.edu/',
+    id: 'work6',
+  },
+  {
+    company: {
       en: 'U of I Grainger College of Engineering',
       zh: '伊利诺伊大学格兰杰工程学院',
     },
@@ -66,21 +77,10 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     id: 'work5',
   },
   {
-    company: {
-      en: 'Cancer Center at University of Illinois',
-      zh: '伊利诺伊大学癌症研究中心',
-    },
-    title: { en: 'Research Assistant', zh: '研究助理' },
-    start: '2025.9',
-    end: '',
-    link: 'https://cancer.illinois.edu/',
-    id: 'work6',
-  },
-  {
     company: { en: 'Illinois Math Lab', zh: '伊利诺伊大学数学实验室' },
     title: { en: 'Software Engineer (Part-time)', zh: '软件工程师（兼职）' },
     start: '2025.8',
-    end: '',
+    end: '2025.12',
     link: 'https://illinois.edu',
     id: 'work1',
   },
