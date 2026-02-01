@@ -59,7 +59,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
       en: 'University of Illinois CS 101 Course',
       zh: '伊利诺伊大学 CS101课程',
     },
-    title: { en: '课程助理', zh: '课程助理' },
+    title: { en: 'Course Assistant', zh: '课程助理' },
     start: '2026.1',
     end: '',
     link: 'https://siebelschool.illinois.edu/',
