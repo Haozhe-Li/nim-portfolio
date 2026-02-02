@@ -3,15 +3,27 @@ import { TextEffect } from '@/components/ui/text-effect'
 import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n'
 import { Magnetic } from '@/components/ui/magnetic'
+import { usePathname } from 'next/navigation'
 
 export function Header() {
   const t = useTranslation()
+  const pathname = usePathname()
+  const isHome = pathname === '/'
+
   return (
     <header className="mb-8 flex items-center justify-between">
       <div>
-        <Link href="/" className="font-medium text-black dark:text-white">
-          {t.header.name}
-        </Link>
+        {isHome ? (
+          <h1 className="inline">
+            <Link href="/" className="font-medium text-black dark:text-white">
+              {t.header.name}
+            </Link>
+          </h1>
+        ) : (
+          <Link href="/" className="font-medium text-black dark:text-white">
+            {t.header.name}
+          </Link>
+        )}
         <TextEffect
           as="p"
           preset="fade"

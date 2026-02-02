@@ -20,12 +20,12 @@ const SITE_URL = 'https://haozhe.li'
 const LOCALE_METADATA: Record<Locale, { title: string; description: string; contentLanguage: string }> = {
   en: {
     title: 'Haozhe Li',
-    description: 'AI enthusiast / Full-stack / Product / ...',
+    description: 'Haozhe Li - UIUC Student, AI Enthusiast, Full-stack Developer, and Product Designer. Portfolio showcasing innovative projects and technical blog posts.',
     contentLanguage: 'en-US',
   },
   zh: {
     title: '李浩哲',
-    description: 'AI 爱好者 / 全栈 / 产品 / ...',
+    description: '李浩哲 - UIUC 学生，AI 爱好者，全栈开发者，产品设计师。展示创新项目与技术博客。',
     contentLanguage: 'zh-CN',
   },
 }
@@ -71,6 +71,29 @@ export default async function RootLayout({
       <body
         className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Haozhe Li',
+              alternateName: '李浩哲',
+              url: 'https://haozhe.li',
+              jobTitle: 'Software Engineer',
+              alumniOf: {
+                '@type': 'CollegeOrUniversity',
+                name: 'University of Illinois Urbana-Champaign',
+                sameAs: 'https://illinois.edu'
+              },
+              sameAs: [
+                'https://github.com/Haozhe-Li',
+                'https://www.linkedin.com/in/haozheli/',
+                'https://www.instagram.com/haozheli04/',
+              ],
+            }),
+          }}
+        />
         <ThemeProvider
           enableSystem={true}
           attribute="class"
