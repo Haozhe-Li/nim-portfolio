@@ -35,11 +35,19 @@ export function middleware(request: NextRequest) {
   }
 
   if (!determinedLocale) {
-    return NextResponse.next()
+    // Pass pathname even if no locale determined, important for SEO canonicals
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-pathname', nextUrl.pathname)
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    })
   }
 
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set(LOCALE_HEADER, determinedLocale)
+  requestHeaders.set('x-pathname', nextUrl.pathname)
 
   if (prefixMatch) {
     const url = request.nextUrl.clone()
