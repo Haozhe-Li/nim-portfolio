@@ -30,6 +30,17 @@ type SocialLink = {
 
 export const PROJECTS: Project[] = [
   {
+    name: { en: 'Omni Knows Neo', zh: '奥秘尽知 Neo' },
+    description: {
+      en: 'Deep Research, writing Answers into the Unknown',
+      zh: '深度探索，在青色的未知里把答案写进画布',
+    },
+    link: '/blog/omniknows-neo',
+    video: 'https://cdn.haozheli.com/omniknows-neo.mp4',
+    thumbnail: 'https://cdn.haozheli.com/omni-landing-cover.webp',
+    id: 'project1',
+  },
+  {
     name: { en: 'Pictures', zh: '智能相册' },
     description: {
       en: 'An AI-powered gallery for photographers.',
@@ -38,17 +49,6 @@ export const PROJECTS: Project[] = [
     link: '/blog/pictures',
     video: 'https://cdn.haozheli.com/pictures-home.mp4',
     thumbnail: 'https://cdn.haozheli.com/pictures-thumb.webp',
-    id: 'project1',
-  },
-  {
-    name: { en: 'Omni Knows XYZ', zh: '奥秘尽知' },
-    description: {
-      en: 'A smart search engine like never before.',
-      zh: '前所未有的智能搜索引擎。',
-    },
-    link: '/blog/omniknowsxyz',
-    video: 'https://cdn.haozheli.com/omniknowsxyz.mp4',
-    thumbnail: 'https://cdn.haozheli.com/project1.webp',
     id: 'project2',
   },
 ]
@@ -114,6 +114,18 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 ]
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    title: {
+      en: 'Introducing Omni Knows Neo: Writing Answers into the Unknown',
+      zh: '奥秘尽知 Neo：在青色的未知里，把答案写进画布',
+    },
+    description: {
+      en: 'A new UI, smarter personalization, progressive skills, and canvas for Neo.',
+      zh: 'Neo 的新 UI、更智能的个性化、渐进式技能和画布。',
+    },
+    link: '/blog/omniknows-neo',
+    uid: 'blog-5',
+  },
   {
     title: {
       en: 'Introducing Pictures: An AI-Powered Gallery for Photographers',
