@@ -305,9 +305,9 @@ export default function Personal() {
             ))}
           </AnimatedBackground>
           <div className="mt-4">
-            <MagneticButton href="/blog">
+            {/* <MagneticButton href="/blog">
               {t.home.readMoreBlogs || 'Read More Blogs'}
-            </MagneticButton>
+            </MagneticButton> */}
           </div>
         </div>
       </motion.section>
