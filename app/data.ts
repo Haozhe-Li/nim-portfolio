@@ -56,6 +56,17 @@ export const PROJECTS: Project[] = [
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
     company: {
+      en: 'Menos AI',
+      zh: 'Menos AI',
+    },
+    title: { en: 'Machine Learning Engineer Intern', zh: '机器学习工程师实习' },
+    start: '2026.5',
+    end: '',
+    link: 'https://menosai.com/',
+    id: 'work6',
+  },
+  {
+    company: {
       en: 'University of Illinois CS 101 Course',
       zh: '伊利诺伊大学 CS101课程',
     },
