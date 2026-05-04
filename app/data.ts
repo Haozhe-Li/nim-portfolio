@@ -127,6 +127,18 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 export const BLOG_POSTS: BlogPost[] = [
   {
     title: {
+      en: 'Smart Audio Asset Library: Hybrid RAG Audio Search',
+      zh: '智能音频素材库：混合检索 Audio Search',
+    },
+    description: {
+      en: 'A smarter, faster, and more organized approach to audio search.',
+      zh: '一种更智能、更快速、更有条理的音频搜索方法。',
+    },
+    link: '/blog/capstone',
+    uid: 'blog-6',
+  },
+  {
+    title: {
       en: 'Introducing Omni Knows Neo: Writing Answers into the Unknown',
       zh: '奥秘尽知 Neo：在青色的未知里，把答案写进画布',
     },
