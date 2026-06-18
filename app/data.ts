@@ -30,10 +30,10 @@ type SocialLink = {
 
 export const PROJECTS: Project[] = [
   {
-    name: { en: 'Omni Knows Neo', zh: '奥秘尽知 Neo' },
+    name: { en: 'Omni Knows', zh: '奥秘尽知' },
     description: {
-      en: 'Deep Research, writing Answers into the Unknown',
-      zh: '深度探索，在青色的未知里把答案写进画布',
+      en: 'All-around AI Agent',
+      zh: '全能AI助手',
     },
     link: '/blog/omniknows-neo',
     video: 'https://cdn.haozheli.com/omniknows-neo.mp4',
