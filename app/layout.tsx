@@ -6,6 +6,7 @@ import { Footer } from './footer'
 import { ThemeProvider } from 'next-themes'
 import { LocaleProvider } from '@/lib/locale-context'
 import { Analytics } from '@vercel/analytics/next'
+import { MicrosoftClarity } from '@/components/clarity'
 import { getRequestLocale } from '@/lib/request-locale'
 import type { Locale } from '@/lib/i18n'
 
@@ -111,6 +112,7 @@ export default async function RootLayout({
           </LocaleProvider>
         </ThemeProvider>
         <Analytics />
+        <MicrosoftClarity />
       </body>
     </html>
   )
