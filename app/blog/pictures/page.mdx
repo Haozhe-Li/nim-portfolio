@@ -23,14 +23,6 @@ By leveraging multimodal AI technology, this project enables a **cross-language,
 
 ------
 
-## Roadmap
-
-- [ ] **Advanced Search:** Add filters for date ranges, precise keyword matching, and adjustable RRF weights (enabling image-only or text-only search tuning).
-- [ ] **Dynamic Homepage:** Replace the static database scroll with personalized suggestions. While simple to implement on the backend, ensuring low latency with cached results remains a challenge.
-
-------
-
-
 ## Key Features
 
 
@@ -87,6 +79,22 @@ Looking for inspiration? Try **Random Recommendations**.
 Our recommendation system intelligently curates photography that aligns with your tastes, making discovery effortless and enjoyable.
 
 
+#### Personalized Homepage
+
+
+The homepage is no longer a static scroll through the database. It now serves **personalized recommendations** tailored to each visitor.
+
+
+Under the hood, the feed is built from a **dual-pool strategy** that balances *exploitation* and *exploration*:
+
+
+- **Exploitation pool:** proven, high-quality photographs and works that match what you have already shown interest in.
+- **Exploration pool:** fresh and lesser-seen photographs, so new work gets a real chance to be discovered.
+
+
+We deliberately tuned the ratio between the two pools so that **great photos and brand-new photos can both show up**. Established favorites do not crowd out newcomers, and exploration does not drown out quality. The result is a homepage that feels relevant on the first screen and still keeps surprising you.
+
+
 ------
 
 
@@ -115,9 +123,9 @@ The overall process is as follows:
 1. **Metadata Embedding**  
    First, extract image metadata such as EXIF, title, and description, and embed them using:  
    - **BM25** to generate sparse vectors for keyword-level matching.  
-   - **OpenAI CLIP (text)** to generate dense vectors for capturing semantic information and enabling fuzzy search.
+   - **multilingual MiniLM (paraphrase)** to generate dense vectors for capturing semantic information and enabling fuzzy, cross-language search.
 2. **Visual Embedding**  
-   Use **OpenAI CLIP (image)** to embed the visual content, generating dense vectors that capture both visual and semantic information.
+   Use **Jina CLIP v1** to embed the visual content, generating dense vectors that capture both visual and semantic information.
 3. **Vector Storage**  
    All three vectors are upserted into the vector database, forming the foundation of retrieval.
 4. **Search and Result Fusion**  
@@ -154,6 +162,44 @@ The backend caches recommendation results so that identical or similar requests 
 
 **Layer 3: Embedding Cache (Embedding Layer)**  
 Query embeddings are cached so that repeated queries reuse existing vectors instead of recomputing them, speeding up subsequent searches.
+
+
+------
+
+
+#### Self-Hosted Infrastructure on Railway
+
+
+The entire Pictures backend is deployed on **Railway** and runs on our own stack, with no third-party managed AI or vector APIs in the loop:
+
+
+- A custom backend service.
+- **Qdrant**, self-hosted, as the vector database.
+- **Redis**, self-hosted, for the caching layers described above.
+- Our own **embedding service**.
+
+
+**Embedding service.** Images are embedded with **Jina CLIP v1**, and text is embedded with **multilingual MiniLM (paraphrase)**. Both models are **quantized and exported to ONNX**, so they run fast on plain **CPU** with no GPU required. On top of that, we wrote our own **dynamic batching + request queue**: concurrent requests are grouped into batches for throughput, and when the queue is full the service replies with a 503 to protect itself instead of falling over.
+
+
+**Same-region private networking.** The backend, Qdrant, Redis and the embedding service all live in the same Railway region and talk to each other over **Railway's internal network**, so service-to-service calls never touch the public internet and stay very fast.
+
+
+**Benchmark.** Measured from inside Railway against the embedding service, on CPU only:
+
+
+- **multilingual MiniLM (text):** **12 ms** p50 / **18 ms** p99 for a single request, peaking at **~197 req/s**
+- **Jina CLIP v1 (image):** **27 ms** p50 / **40 ms** p99 for a single request, peaking at **~75 req/s**
+- **Mixed (Jina + MiniLM together):** ~53 ms p50 / 77 ms p99 at concurrency 2, reaching **~83 req/s** combined
+
+
+- A text embedding comes back in about **12 ms**, and an image embedding in about **27 ms**.
+- Even with **128 concurrent clients** hammering both models at once, the service sustained roughly **80 req/s** on CPU.
+- **Zero failed requests** (no non-200 responses) across every phase of the run, and the queue never filled.
+- Memory stayed flat at around **1.2 GB** from the first request to the last, with no leaks and no growth under load.
+
+
+At high concurrency, latency is mostly time spent waiting in the queue rather than model compute, which is exactly the trade the queue is designed to make.
 
 
 ------
