@@ -150,12 +150,12 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     title: {
-      en: 'Introducing Omni Knows Neo: Writing Answers into the Unknown',
-      zh: '奥秘尽知 Neo：在青色的未知里，把答案写进画布',
+      en: 'Omni Knows Neo: A Research Agent Whose Answers You Can Verify',
+      zh: 'Omni Knows Neo：答案可以被验证的研究型 Agent',
     },
     description: {
-      en: 'A new UI, smarter personalization, progressive skills, and canvas for Neo.',
-      zh: 'Neo 的新 UI、更智能的个性化、渐进式技能和画布。',
+      en: 'Cited answers you can check, deep research on a canvas, our own SFT model Rix, and how the agent works under the hood.',
+      zh: '可追溯、可验证的回答，画布上的深度研究，自研 SFT 模型 Rix，以及 Agent 背后的技术实现。',
     },
     link: '/blog/omniknows-neo',
     uid: 'blog-5',
