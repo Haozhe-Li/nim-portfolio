@@ -1,71 +1,164 @@
-# Meet Rix: A Versatile Model Built for Omni's Agentic Tasks
+# Introducing Rix: Omni Latest In-House Model
 
-Starting today, all users will be able to select our latest and first-ever in-house model: Rix, purpose-built for answer quality, factual grounding, and a user-friendly response style. Rix is built on top of Qwen3-30B-A3B, and we've further trained it to push its capabilities closer to the frontier. As a mixture-of-experts model with only 3 billion activated parameters, Rix delivers performance close to frontier-class models — including proprietary ones — at a fraction of the cost.
+**Rix** is a model we train ourselves for Omni. It starts from Google's open-weight MoE model **Gemma 4 26B-A4B** and uses SFT to distill how **GPT-6 Luna** behaves as the Omni agent, using real Omni conversations.
 
-## Rix Performs Well on Benchmarks
+This is what we wanted out of it:
 
-We built OmniBench to evaluate how leading large language models perform inside Omni's agentic system.
+- **Faster.** Only about 4B parameters are active per token, so responses are lighter and quicker.
+- **Steadier.** It learns the way Luna completes a whole task: when to search, when to read, how to cite, when to stop, and not only how to sound.
+- **Fewer hallucinations.** The factual answers in the training data are all full trajectories: retrieve first, then answer with citations.
+- **Cheaper.** In Omni, a Rix turn costs 1 credit. Picking GPT-6 Luna or Gemini 3.6 Flash directly costs 3.
+- **Natively multimodal.** It can look at images itself, so an image turn doesn't have to be handed to another model.
 
-<Cover
-  src="https://cdn.haozheli.com/omni_index.webp"
-  alt="Omni Index"
-  caption="Omni Index"
-/>
+Pick **Rix** in the model selector to use it. For what Omni itself is, start with [Omni Knows Neo](/blog/omniknows-neo).
 
-<Cover
-  src="https://cdn.haozheli.com/omni_index_comparison.webp"
-  alt="Omni Index"
-  caption="Omni Index"
-/>
+This post is about how Rix was trained.
 
-Our evaluations show that Rix ranks 2nd on the Omni Index, a composite ranking that weighs each model's intelligence, instruction discipline, speed, stability, and cost, trailing only GPT-5.6-Luna (0.905) with a score of 0.903 — and leading Gemini 3.6 Flash by a wide margin.
+---
 
-<Cover
-  src="https://cdn.haozheli.com/omni_index_comparison.webp"
-  alt="Omni Index"
-  caption="Omni Index"
-/>
+## Why train our own model
 
-On quality alone, Rix is right behind GPT-5.6-Luna, scoring 0.958 to Luna's 0.958.
+Omni's agent asks a lot of a model. It doesn't only answer questions. It has to follow a whole *protocol*:
 
-## Rix Is Fast
+- factual questions must call a tool before answering;
+- citations must use the real numbers a tool returned, placed where the rules say;
+- a complex task must read the matching skill first, then follow its workflow;
+- charts, reports, maps and emails are written into the answer in an agreed format;
+- a turn that calls a tool must contain nothing else.
 
-Rix is the fastest model in our benchmark, responding in just 6.6s — 1.4x faster than GPT-5.6-Luna (9.3s) and 2.6x faster than Gemini 3.6 Flash (17.4s). Running on our own general-purpose GPU clusters rather than specialized inference hardware, that speed advantage comes purely from how Rix is built and served.
+The most important thing our first-generation Rix taught us: **open models lose here on protocol, not on capability.** Generation one was a LoRA on Qwen3-30B-A3B, trained on about a hundred high-quality Luna trajectories. On our internal 28-case evaluation, the untuned base model loaded a skill **zero** times across 56 runs. It could use tools just fine. Reading a skill simply wasn't part of its behavior. After fine-tuning, skill loading went from 4 of 51 runs to 26 of 51, and the overall score from 0.789 to 0.866 (the teacher scored 0.962).
 
-<Cover
-  src="https://cdn.haozheli.com/speed.webp"
-  alt="Speed P50"
-  caption="Speed P50"
-/>
+That confirmed the direction. The model wasn't missing knowledge. It was missing experience of how to work inside this agent, which is what SFT is good at.
 
-<Cover
-  src="https://cdn.haozheli.com/quality_vs_latency.webp"
-  alt="Speed P50"
-  caption="Speed P50"
-/>
-## Rix Excels at Providing High-Quality Answers
+Generation one had three shortcomings, though. It was text-only, so a turn with an image had to be handed to another model. Its training data was a hundred-odd queries we wrote ourselves, not what real users ask. And it sat on a text base with only 3B active parameters.
 
-We optimized Rix along two dimensions:
+Hence generation two.
 
-- **Factuality:** how well an answer is grounded in verifiable information
-- **Readability:** how clearly and helpfully an answer is formatted for the user
+## Why Gemma 4 26B-A4B, and why distill GPT-6 Luna
 
-Compared with openai/gpt-oss-120b — a substantially larger and heavier model — Rix performs exceptionally well on both dimensions.
+**The base: Gemma 4 26B-A4B.** It's a MoE with 26B parameters in total and about 4B active per token. Cost and speed are close to a 4B model, with far more capacity behind them. It takes images natively, so Rix doesn't need a detour to another model to see. And it has open weights, which lets us fine-tune it and host it on the platform we already use (Weights & Biases Serverless Training and Inference).
+
+**The teacher: GPT-6 Luna.** Distillation here is not about learning a cleverer answer. It's about learning the **whole behavior of one agent**. Luna already runs inside Omni with the same prompt, the same tools and the same skills, so every tool call, every tool result and every final answer it produces in a real conversation is a ready-made, protocol-compliant demonstration. We aren't teaching Gemma to *be* Luna. We're teaching it to **work like Luna, inside Omni.**
+
+## Training data: from real conversations
 
 <Cover
-  src="https://cdn.haozheli.com/qa_1.webp"
-  alt="Speed P50"
-  caption="Speed P50"
+  src="/blog/rix/rix-pipeline.png"
+  alt="Rix training pipeline"
+  caption="The Rix training pipeline"
 />
+
+#### Thumbs-ups: real questions from real users
+
+When a user gives a thumbs-up to an answer written by **Luna**, the system reads that conversation's full LangGraph checkpoint, converts it to OpenAI-style messages, and stores it together with every tool call, every tool result and every image. What's saved isn't "a question and an answer" but everything the agent saw:
+
+- the user's message, including the system reminder, pre-fetched results and every other tagged block of context;
+- each assistant step, with its tool calls and arguments;
+- the real results the tools returned;
+- the final answer, with citations.
+
+The system prompt and tool schemas aren't copied into every example. They're stored once, under a hash, and examples point at it.
+
+The collection path has lines it won't cross:
+
+- **Teacher turns only.** A turn is recorded only if every assistant message in it came from Luna. If any other model spoke in the thread, it's refused. When a turn's model attribution is missing, it's assumed *not* to be Luna, so we'd rather miss data than mislabel it.
+- **Conversations with user memory or uploaded files are never recorded.** That's personal data, and it shouldn't end up in model weights.
+- **Voice calls, scheduled research, safety-locked threads and unfinished answers are skipped.**
+- **It's revocable.** Taking back a thumbs-up, or switching it to a thumbs-down, deletes the example. Rewinding or regenerating a turn deletes that turn and everything after it. When a user erases their data, these records go with it.
+
+#### The collector: a person controls the inputs
+
+Thumbs-ups have a built-in bias: people click on quick, easy answers, and hard research tasks rarely get clicked. To fill that gap we built a password-protected collection page.
+
+An annotator asks questions like a user would, and chooses the time, location, answer language and user memory, and can even attach files and URLs. Behind it runs **the same agent through the same code path**. We wrote a test that sends one conversation through the production chat endpoint and through the collector, and asserts that the model receives byte-identical messages. The annotator can also rewrite the final answer in a Markdown editor. The edit is written back into the checkpoint, so later turns read the edited version.
+
+The collector matters for images too. A thumbs-up user's image is their own photo, and we don't train on it. An annotator's image is a test input chosen on purpose, which is fine. Gemma can see on its own. This data helps the tuned model keep that ability inside image turns of the agent.
+
+## Filtering the data
 
 <Cover
-  src="https://cdn.haozheli.com/qa_2.webp"
-  alt="Speed P50"
-  caption="Speed P50"
+  src="/blog/rix/rix-filters.png"
+  alt="Dataset filters"
+  caption="What a row has to survive before training"
 />
 
-## Use Rix Today
+A thumbs-up is a click, not a review. Before training, every example passes two more gates.
 
-Rix is rolling out to all users starting today. Simply select Rix in the model selector to get started.
+**Human review.** Each example is pending, accepted or rejected. A reviewer can read the full conversation, accept or reject it, and see how many times each skill was loaded and how many examples loaded none. Rejected examples never reach the training set, and you can also train on human-confirmed examples only.
 
-[screenshot]
+**Automatic filters.** Building the dataset applies these in turn:
+
+1. Keep only examples from the exact current harness (next section);
+2. Every assistant message in the conversation must come from the teacher;
+3. Drop examples with user memory or private files;
+4. Drop real users' images, keep annotators';
+5. Within a thread, if one example is a prefix of a later one, keep only the longer, so the same assistant message isn't trained twice;
+6. Drop examples whose history was summarized, because the model saw less than the row records.
+
+Finally, long tool results are trimmed proportionally so every row fits the training backend's sequence limit. That one we learned the hard way during generation one: the hosted trainer has a hard limit of 32,768 tokens, and a row over it doesn't error. It makes the whole job **hang forever**. The backend also provisions for the **longest** row in the dataset, so a single 200k-token example made every training step more than fifty times slower.
+
+## The training environment must not change: the harness fingerprint
+
+<Cover
+  src="/blog/rix/rix-lock.png"
+  alt="Harness fingerprint"
+  caption="The harness fingerprint"
+/>
+
+A LoRA has only ever seen one kind of input. Whatever system prompt and tool definitions it was trained under must be exactly what it's served with. Otherwise it's handed an input it has never seen, **with no error at all**, and quietly gets worse.
+
+So we fingerprint the whole harness:
+
+- it hashes the **fully assembled** system prompt, not just the part we write, because the agent framework appends several sections of its own at request time;
+- plus every tool schema;
+- plus each skill's **name and description**, because they're inlined into the prompt. A skill's body is *not* included: it arrives at runtime as a tool result, so it's training data and not weights, and can be edited freely.
+
+Any drift fails the check. The agent framework is pinned to an exact version for the same reason. Changing any of it means every example collected before is stale and has to be re-collected and retrained, so it's a decision with a cost, not a casual edit.
+
+## Training
+
+**Platform.** Weights & Biases Serverless Training, on `google/gemma-4-26B-A4B-it`, as a LoRA fine-tune.
+
+**Settings.** The first version used 124 training examples for 3 epochs at batch size 1, which is 372 steps. Peak learning rate 1e-4 with cosine decay and 10% warmup.
+
+**Objective.** Every assistant message contributes to the loss, tool calls and the final answer alike, not just the last sentence. That's also why earlier turns of a conversation have to come from the teacher too: they get learned as well. Mean loss over the three epochs was 1.91, 0.94 and 0.78.
+
+**Two Gemma gotchas,** both found by measuring:
+
+- **The chat template moves text to after the tool result.** If an assistant message has both text and a tool call, Gemma 4's template renders that text *after* the tool response, so the model learns "explain after looking it up". The fix is to split it into two consecutive assistant messages in the training data, which renders as "say a line, then call the tool".
+- **The generation prompt already ends with an empty thought block.** The training rendering never contains one, so once served, the model emits a second empty block at the start of every message. It comes back as plain text, leaks into the answer, and gets saved to the thread. We filter it in the model wrapper, *before* streamed tokens are handed downstream, so it never shows on screen or in history.
+
+<Cover
+  src="/blog/rix/rix-serving.png"
+  alt="Serving path"
+  caption="The serving path"
+/>
+
+## Serving
+
+The trained LoRA is hosted on W&B Inference and runs inside the same agent as every other model: the same system prompt, the same tools, the same skills, the same tool budget. Images take the same path, with no model switch.
+
+You can move between Rix and other models in the same conversation at any time.
+
+**Rix Voice.** Omni's live voice calls use a different Rix: also Gemma 4 26B-A4B, also distilled from Luna, but trained on the voice-call prompt and tools. Its data includes spoken-style questions, hand-written answers to identity questions ("who built you", "are you ChatGPT"), and a strict length cap, because every reply is spoken aloud.
+
+## What isn't done yet
+
+- **A thumbs-up selects for pleasing, not for correct.** It favors long, confident, nicely formatted answers, even wrong ones. Human review and the eval suite are the counterweight, and we don't skip evaluation just because the data is real.
+- **The data skews simple.** Easy questions get clicked more, so research tasks are under-represented. The collector exists for exactly this, and we'll keep adding to it.
+- **It's still small.** The first version has 124 examples.
+- **It loads skills less often than Luna.** We saw this gap in our first full check, and it's the first behavior the next round of data should cover.
+- **It's still opt-in.** The default, Best, is still served by Luna. You choose Rix yourself in the model selector. We'll give it more traffic once the data and evaluation are solid enough.
+
+For evaluation we use Omni's own eval setup: it runs the same agent in-process, scores with deterministic checks plus an LLM judge, treats the teacher's score as the ceiling, and turns model fallback off during evals so a quietly substituted model can't be measured by mistake.
+
+## What's next
+
+- Collect more hard tasks, especially deep research and conversations with files and images;
+- Close the skill-loading gap;
+- Once there's enough data, move the high-frequency, positive rules out of the prompt and into the weights;
+- Train the next version as the data grows.
+
+Rix is young, but the direction is clear: **not a general-purpose big model, but one that truly knows how to work as the Omni agent.**
+
+Try it in the model selector at [omniknows.xyz](https://omniknows.xyz).

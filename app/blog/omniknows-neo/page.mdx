@@ -40,7 +40,7 @@ The model selector has one special entry: **Rix**.
 
 Rix is an in-house model we built by running SFT on an open-weight base with real Omni agent trajectories. It is tuned for Omni's tool calling, skill loading and answer style, so it is fast, cheap, and accepts image input.
 
-How Rix was trained deserves its own post, which is [Meet Rix](/blog/rix).
+How Rix was trained deserves its own post, which is [Introducing Rix](/blog/rix).
 
 #### 4. It remembers you, and works while you're away
 
@@ -158,9 +158,9 @@ Search is also capped by turn, so a sentence from an early turn can never resolv
 
 #### Models, and Rix
 
-You can pick Best (the default), Rix, GPT-5.6 Luna or Gemini 3.6 Flash. A thread isn't pinned to a model, so you can switch mid-conversation. If the chosen model errors, the agent falls back to another one.
+You can pick Best (the default), Rix, GPT-6 Luna or Gemini 3.6 Flash. A thread isn't pinned to a model, so you can switch mid-conversation. If the chosen model errors, the agent falls back to another one.
 
-**Rix** is SFT'd on top of the open-weight MoE model Gemma 4 26B-A4B (only about 4B parameters active per token). The training data comes from real Omni agent trajectories: answers users gave a thumbs-up, and answers we edited by hand in an internal collector. Trajectories include every tool call and every skill load, so Rix learns the behavior of the whole agent, not just a speaking style. The training details and benchmark results are in [Meet Rix](/blog/rix).
+**Rix** is SFT'd on top of the open-weight MoE model Gemma 4 26B-A4B (only about 4B parameters active per token). The training data comes from real Omni agent trajectories: answers users gave a thumbs-up, and answers we edited by hand in an internal collector. Trajectories include every tool call and every skill load, so Rix learns the behavior of the whole agent, not just a speaking style. The full training story is in [Introducing Rix](/blog/rix).
 
 #### Live voice
 
@@ -194,7 +194,7 @@ Model fallback is switched off during evals. Otherwise a dead provider silently 
 
 - Frontend: Next.js, Vercel, Clerk
 - Backend: Python, FastAPI, LangChain, LangGraph, deepagents, Docker, GCP
-- Models: Rix (in-house SFT), GPT-5.6 Luna, Gemini 3.6 Flash, plus small models for memory, titles, router fallback and other chores
+- Models: Rix (in-house SFT), GPT-6 Luna, Gemini 3.6 Flash, plus small models for memory, titles, router fallback and other chores
 - Retrieval: Exa, SearXNG, Tavily, page fetching, Qdrant
 - State: Redis, Postgres, object storage
 - Everything else: E2B code sandbox, QStash scheduling, Resend email, OpenAI realtime transcription, Fish Audio TTS, Weights & Biases for training and serving

@@ -138,6 +138,18 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 export const BLOG_POSTS: BlogPost[] = [
   {
     title: {
+      en: 'Introducing Rix: Omni Latest In-House Model',
+      zh: 'Introducing Rix：Omni 最新的自研模型',
+    },
+    description: {
+      en: 'How we distilled GPT-6 Luna into Gemma 4 26B-A4B with SFT: data, filtering, training, and serving.',
+      zh: '我们如何用 SFT 把 GPT-6 Luna 蒸馏进 Gemma 4 26B-A4B：数据、筛选、训练与上线。',
+    },
+    link: '/blog/rix',
+    uid: 'blog-7',
+  },
+  {
+    title: {
       en: 'Smart Audio Asset Library: Hybrid RAG Audio Search',
       zh: '智能音频素材库：混合检索 Audio Search',
     },

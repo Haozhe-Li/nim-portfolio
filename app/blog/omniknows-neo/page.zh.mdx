@@ -40,7 +40,7 @@ Omni 的模型选择器里有一个特别的选项：**Rix**。
 
 Rix 是我们基于开源模型、用 Omni 自己的真实 Agent 轨迹做 SFT 得到的自研模型。它为 Omni 的工具调用、技能加载和回答风格专门调过，速度快、成本低，并且支持图片输入。
 
-关于 Rix 是怎么训练出来的，我们会单独写一篇，详见 [Meet Rix](/blog/rix)。
+Rix 是怎么训练出来的，另有专文：[Introducing Rix](/blog/rix)。
 
 #### 4. 它记得你，也能在你不在的时候替你工作
 
@@ -158,9 +158,9 @@ Rix 是我们基于开源模型、用 Omni 自己的真实 Agent 轨迹做 SFT �
 
 #### 多模型与 Rix
 
-目前可选的模型有：默认的 Best、Rix、GPT-5.6 Luna 和 Gemini 3.6 Flash。对话不绑定模型，同一个 thread 可以中途换模型继续。主模型报错时会自动切换到备用模型。
+目前可选的模型有：默认的 Best、Rix、GPT-6 Luna 和 Gemini 3.6 Flash。对话不绑定模型，同一个 thread 可以中途换模型继续。主模型报错时会自动切换到备用模型。
 
-**Rix** 基于开源的 MoE 模型 Gemma 4 26B-A4B（每个 token 只激活约 4B 参数）做 SFT。训练数据来自 Omni 的真实 Agent 轨迹：用户点赞的回答，以及我们在后台人工编辑过的回答。轨迹里包含完整的工具调用和 skill 加载过程，所以 Rix 学到的是整个 Agent 的行为，而不只是说话风格。训练细节和评测结果，会放在 [Meet Rix](/blog/rix) 这篇里专门讲。
+**Rix** 基于开源的 MoE 模型 Gemma 4 26B-A4B（每个 token 只激活约 4B 参数）做 SFT。训练数据来自 Omni 的真实 Agent 轨迹：用户点赞的回答，以及我们在后台人工编辑过的回答。轨迹里包含完整的工具调用和 skill 加载过程，所以 Rix 学到的是整个 Agent 的行为，而不只是说话风格。完整的训练过程见 [Introducing Rix](/blog/rix)。
 
 #### 实时语音
 
@@ -194,7 +194,7 @@ Rix 是我们基于开源模型、用 Omni 自己的真实 Agent 轨迹做 SFT �
 
 - 前端：Next.js、Vercel、Clerk
 - 后端：Python、FastAPI、LangChain、LangGraph、deepagents、Docker、GCP
-- 模型：Rix（自研 SFT）、GPT-5.6 Luna、Gemini 3.6 Flash，以及负责记忆、标题、路由兜底等杂活的小模型
+- 模型：Rix（自研 SFT）、GPT-6 Luna、Gemini 3.6 Flash，以及负责记忆、标题、路由兜底等杂活的小模型
 - 检索：Exa、SearXNG、Tavily、网页抓取、Qdrant
 - 状态：Redis、Postgres、对象存储
 - 其他：E2B 代码沙箱、QStash 定时、Resend 邮件、OpenAI 实时转写、Fish Audio TTS、Weights & Biases 训练与部署
